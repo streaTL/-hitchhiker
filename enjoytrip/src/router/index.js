@@ -28,15 +28,21 @@ const routes = [
     props: true,
   },
   {
-    path: "detail",
+    path: "/detail",
     name: "boardDetail",
     component: () => import("@/components/board/Detail"),
     props: true,
   },
   {
-    path: "write",
+    path: "/write",
     name: "boardWrite",
     component: () => import("@/components/board/BoardWrite"),
+    props: true,
+  },
+  {
+    path: "/login",
+    name: "userLogin",
+    component: () => import("@/views/LoginView"),
     props: true,
   },
 ];

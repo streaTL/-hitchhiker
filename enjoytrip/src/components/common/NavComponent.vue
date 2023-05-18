@@ -74,7 +74,7 @@
             <li v-if="userinfo == null" class="nav-item mx-0 mx-lg-1">
               <router-link
                 class="nav-link py-3 px-0 px-lg-3 rounded"
-                to="/user/login"
+                to="/login"
                 style="display: block"
                 id="loginNavBtn"
                 >Login</router-link
@@ -87,14 +87,14 @@
             >
               <router-link
                 class="nav-link py-3 px-0 px-lg-3 rounded"
-                to="/user/myPage"
+                to="/myPage"
                 >My Page</router-link
               >
             </li>
             <li v-if="userinfo != null" class="nav-item mx-0 mx-lg-1">
               <router-link
                 class="nav-link py-3 px-0 px-lg-3 rounded"
-                to="/user/logout"
+                to="/logout"
                 id="logoutNavBtn"
                 >Logout</router-link
               >
