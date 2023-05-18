@@ -11,6 +11,11 @@ const routes = [
     component: MainView,
   },
   {
+    path: "/map",
+    name: "map",
+    component: () => import("@/views/MapView"),
+  },
+  {
     path: "/board",
     name: "board1",
     component: () => import("@/views/BoardView"),

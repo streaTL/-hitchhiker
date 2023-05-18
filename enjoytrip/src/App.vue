@@ -2,7 +2,6 @@
   <div id="app">
     <nav-component></nav-component>
     <router-view />
-
     <footer-component></footer-component>
   </div>
 </template>
