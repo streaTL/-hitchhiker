@@ -1,0 +1,127 @@
+<template>
+  <div>
+    <section class="page-section masthead" id="contact">
+      <div class="container">
+        <div class="row justify-content-center">
+          <h1>{{ board.articleNo }}. {{ board.subject }}</h1>
+          <form action="writerAction" method="post">
+            <input
+              type="text"
+              name="bdUserId"
+              class="form-control mt-4 mb-2"
+              v-model="board.userId"
+              :disabled="!able"
+            />
+            <div class="form-group">
+              <textarea
+                class="form-control"
+                rows="10"
+                name="bdContent"
+                v-model="board.content"
+                :disabled="!able"
+              ></textarea>
+            </div>
+            <div style="display: flex; justify-content: flex-end">
+              <button
+                type="button"
+                v-if="able == false"
+                v-on:click="disabledToAble"
+                class="btn btn-secondary mt-3 mb-3 me-3"
+              >
+                수정
+              </button>
+              <button
+                type="button"
+                v-if="able == true"
+                v-on:click="modifyBoard"
+                class="btn btn-secondary mt-3 mb-3 me-3"
+              >
+                완료
+              </button>
+              <button
+                type="button"
+                v-on:click="deleteBoard"
+                class="btn btn-secondary mt-3 mb-3"
+              >
+                삭제
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+
+export default {
+  name: "boardDetail",
+  components: {},
+  data() {
+    return {
+      board: [],
+      able: false,
+    };
+  },
+  props: {
+    articleNo: Number,
+    type: String,
+  },
+  created() {
+    const url = "http://localhost/board/" + this.articleNo;
+    axios.get(url).then((data) => (this.board = data.data));
+  },
+  methods: {
+    disabledToAble() {
+      console.log("변경!!!");
+
+      console.log(this.able);
+      this.able = !this.able;
+    },
+    modifyBoard() {
+      const url = "http://localhost/board/modify/" + this.articleNo;
+      axios
+        .post(url, {
+          subject: this.board.subject,
+          content: this.board.content,
+        })
+        .then((data) => console.log(data));
+      let msg = "";
+      let board;
+      if (this.type == "1") {
+        msg = "공지";
+        board = "board1";
+      } else {
+        msg = "자유";
+        board = "board2";
+      }
+      this.$router.push({
+        name: board,
+        params: { type: this.type, msg: msg },
+      });
+    },
+    deleteBoard() {
+      const url = "http://localhost/board/delete/" + this.articleNo;
+      axios.get(url).then((data) => console.log(data));
+
+      let msg = "";
+      let board;
+      if (this.type == "1") {
+        msg = "공지";
+        board = "board1";
+      } else {
+        msg = "자유";
+        board = "board2";
+      }
+      this.$router.push({
+        name: board,
+        params: { type: this.type, msg: msg },
+      });
+    },
+  },
+};
+</script>
+
+<style scoped></style>
