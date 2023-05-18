@@ -3,9 +3,7 @@
     <section class="page-section masthead" id="contact">
       <div class="container">
         <!-- Contact Section Heading-->
-        <h2
-          class="page-section-heading text-center text-uppercase text-secondary mb-0"
-        >
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">
           {{ msg }}게시판
         </h2>
         <!-- Icon Divider-->
@@ -41,29 +39,19 @@
           <div>
             <ul class="pagination justify-content-center">
               <li>
-                <a href="#" style="margin-right: 5px" class="text-secondary"
-                  >◀
-                </a>
+                <a href="#" style="margin-right: 5px" class="text-secondary">◀ </a>
               </li>
               <li>
-                <a href="#" style="margin-right: 5px" class="text-secondary"
-                  >1
-                </a>
+                <a href="#" style="margin-right: 5px" class="text-secondary">1 </a>
               </li>
               <li>
-                <a href="#" style="margin-right: 5px" class="text-secondary"
-                  >2
-                </a>
+                <a href="#" style="margin-right: 5px" class="text-secondary">2 </a>
               </li>
               <li>
-                <a href="#" style="margin-right: 5px" class="text-secondary"
-                  >3
-                </a>
+                <a href="#" style="margin-right: 5px" class="text-secondary">3 </a>
               </li>
               <li>
-                <a href="#" style="margin-right: 5px" class="text-secondary"
-                  >▶
-                </a>
+                <a href="#" style="margin-right: 5px" class="text-secondary">▶ </a>
               </li>
             </ul>
           </div>

@@ -11,6 +11,5 @@ import com.ssafy.enjoytrip.map.model.attractionInfoDto;
 @Mapper
 public interface MapMapper {
 	List<SidoDto> sido() throws SQLException;
-
 	List<attractionInfoDto> attrInfo(String areaCode, String contentTypeId, String keyword) throws SQLException;
 }

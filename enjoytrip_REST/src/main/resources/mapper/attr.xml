@@ -4,4 +4,36 @@
 	
 <mapper namespace="com.ssafy.enjoytrip.map.model.mapper.MapMapper">
 
+	<resultMap type="attractionInfoDto" id="attr">
+		<result column="content_id" property="contentId"/>
+		<result column="content_type_id" property="contentTypeId"/>
+		<result column="title" property="title"/>
+		<result column="addr1" property="addr1"/>
+		<result column="addr2" property="addr2"/>
+		<result column="tel" property="tel"/>
+		<result column="first_image" property="firstImage"/>
+		<result column="first_image2" property="firstImage2"/>
+		<result column="readcount" property="readCount"/>
+		<result column="sido_code" property="sidoCode"/>
+		<result column="gugun_code" property="gugunCode"/>
+		<result column="latitude" property="latitude"/>
+		<result column="longitude" property="longitude"/>
+		<result column="mlevel" property="mlevel"/>
+	</resultMap>
+	
+	<resultMap type="SidoDto" id="sido">
+		<result column="sido_code" property="sidoCode"/>
+		<result column="sido_name" property="sidoName"/>
+	</resultMap>
+	
+	<select id="sido" resultMap="SidoDto">
+		select * from sido
+	</select>
+
+	<select id="attrInfo" parameterType="String" resultMap="attractionInfoDto">
+		select * from attraction_info
+		where sido_code = #{areaCode} and content_type_id = #{contentTypeId} and title like CONCAT('%', #{keyword}, '%')
+	</select>
+	
+
 </mapper>

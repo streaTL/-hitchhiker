@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -31,16 +32,23 @@ public class MapController {
     
 	public MapService mapService;
 	
+	@Autowired
 	public MapController(MapService mapService) {
 		this.mapService = mapService;
 	}
 	
+//	@GetMapping("/sido")
+//	@ResponseBody
+//	public List<SidoDto> sido() throws Exception {
+//		List<SidoDto> sidos = mapService.sido();
+//		return sidos;
+//	}
+	
 	@GetMapping("/sido")
-	@ResponseBody
-	public List<SidoDto> sido() throws Exception {
-		List<SidoDto> sidos = mapService.sido();
-		return sidos;
+	public ResponseEntity<?> sido() throws Exception{
+		return new ResponseEntity<>(mapService.sido(), HttpStatus.OK);
 	}
+	
 	
 	@GetMapping("/attrInfo")
 	@ResponseBody
