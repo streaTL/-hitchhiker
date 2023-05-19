@@ -41,6 +41,7 @@
 
 <script>
 import http from "@/api/http";
+import { mapState } from "vuex";
 
 export default {
   name: "BoardWrite",
@@ -51,9 +52,11 @@ export default {
         content: "",
         subject: "",
         type: 0,
-        userId: "123",
       },
     };
+  },
+  computed: {
+    ...mapState(["userInfo"]),
   },
   props: {
     type: String,
@@ -68,7 +71,7 @@ export default {
         content: this.board.content,
         subject: this.board.subject,
         type: this.type,
-        userId: this.board.userId,
+        userId: this.userInfo,
       });
       let board;
       if (this.type == 1) {

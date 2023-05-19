@@ -21,7 +21,9 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item mx-0 mx-lg-1">
-              <router-link class="nav-link py-3 px-0 px-lg-3 rounded" to="/map"
+              <router-link
+                class="btn-secondary nav-link py-3 px-0 px-lg-3 rounded"
+                to="/map"
                 >Search</router-link
               >
               <!-- <a
@@ -71,9 +73,9 @@
                 </ul>
               </div>
             </li>
-            <li v-if="userinfo == null" class="nav-item mx-0 mx-lg-1">
+            <li v-if="userInfo == ``" class="nav-item mx-0 mx-lg-1">
               <router-link
-                class="nav-link py-3 px-0 px-lg-3 rounded"
+                class="nav-link btn-secondary py-3 px-0 px-lg-3 rounded"
                 to="/login"
                 style="display: block"
                 id="loginNavBtn"
@@ -81,23 +83,25 @@
               >
             </li>
             <li
-              v-if="userinfo != null"
+              v-if="userInfo != ``"
               class="nav-item mx-0 mx-lg-1"
               id="myPageBtn"
             >
               <router-link
-                class="nav-link py-3 px-0 px-lg-3 rounded"
+                class="nav-link btn-secondary py-3 px-0 px-lg-3 rounded"
                 to="/myPage"
                 >My Page</router-link
               >
             </li>
-            <li v-if="userinfo != null" class="nav-item mx-0 mx-lg-1">
-              <router-link
-                class="nav-link py-3 px-0 px-lg-3 rounded"
-                to="/logout"
-                id="logoutNavBtn"
-                >Logout</router-link
+            <li v-if="userInfo != ``" class="nav-item mx-0 mx-lg-1">
+              <a
+                class="nav-link btn-secondary border-0 py-3 px-0 px-lg-3 rounded"
+                type="button"
+                v-on:click="doLogout"
+                value="Logout"
               >
+                Logout
+              </a>
             </li>
           </ul>
         </div>
@@ -107,17 +111,25 @@
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
 export default {
   name: "NavComponentt",
   components: {},
   data() {
-    return {
-      userinfo: null,
-      boardType: "test",
-    };
+    return {};
+  },
+  computed: {
+    ...mapState(["isLogin", "userInfo"]),
   },
   created() {},
-  methods: {},
+  methods: {
+    ...mapActions(["logout"]),
+    async doLogout() {
+      await this.logout();
+
+      if (this.$route.path != "/") this.$router.push({ name: "main" });
+    },
+  },
 };
 </script>
 

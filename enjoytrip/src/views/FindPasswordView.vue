@@ -7,7 +7,7 @@
       <div
         class="container d-flex align-items-center flex-column card2 border-white"
       >
-        <h1 class="masthead-heading text-uppercase mb-0">Login</h1>
+        <h1 class="masthead-heading text-uppercase mb-0">find pw</h1>
 
         <div class="divider-custom divider-light">
           <div class="divider-custom-line"></div>
@@ -15,14 +15,14 @@
           <div class="divider-custom-line"></div>
         </div>
 
-        <form action="" name="login-form" class="login-form" method="post">
+        <form name="login-form" class="login-form">
           <div class="d-flex mb-4 justify-content-md-between">
             <h3 class="masthead-heading text-uppercase mb-0 fs-1 me-5">ID</h3>
             <input
               type="text"
               class="form-control input-sm"
               id="userId"
-              v-model="user.userId"
+              v-model="user.id"
               style="width: 200px"
             />
           </div>
@@ -31,38 +31,38 @@
               class="masthead-heading text-uppercase mb-0 fs-1"
               style="margin-right: 20px"
             >
-              PW
+              E-MAIL
             </h3>
             <input
-              type="password"
+              type="text"
               class="form-control input-sm"
-              id="userPw"
-              autocomplete="off"
-              v-model="user.userPw"
+              id="userEmail"
+              v-model="user.email"
               style="width: 200px"
             />
           </div>
-          <input
-            class="btn btn-outline-light text-nowrap mt-3 input-sm me-3"
-            type="button"
-            id="login"
-            @click="doLogin"
-            value="로그인"
-          />
-          <router-link
-            class="btn btn-outline-light text-nowrap mt-3 input-sm me-3"
-            id="register"
-            to="/signin"
-          >
-            회원가입
-          </router-link>
-          <router-link
+          <div class="d-flex mb-4 justify-content-md-between">
+            <h3
+              class="masthead-heading text-uppercase mb-0 fs-1"
+              style="margin-right: 20px"
+            >
+              NAME
+            </h3>
+            <input
+              type="text"
+              class="form-control input-sm"
+              id="userName"
+              v-model="user.name"
+              style="width: 200px"
+            />
+          </div>
+          <button
             class="btn btn-outline-light text-nowrap mt-3 input-sm"
-            id="findPW"
-            to="/findpw"
+            v-on:click="findPw"
+            type="button"
           >
-            PW 찾기
-          </router-link>
+            확인
+          </button>
         </form>
       </div>
     </section>
@@ -70,31 +70,30 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import userHttp from "@/api/user";
 export default {
-  name: "LoginView",
+  name: "findPw",
   components: {},
   data() {
     return {
       user: {
-        userId: "",
-        userPw: "",
+        id: "",
+        name: "",
+        email: "",
       },
     };
   },
   created() {},
-  computed: {
-    ...mapState(["isLogin", "userInfo"]),
-  },
   methods: {
-    ...mapActions(["login"]),
-    async doLogin() {
-      await this.login(this.user);
-      if (this.isLogin) {
-        this.$router.push({ name: "main" });
-      } else {
-        alert("아이디와 비밀번호를 확인해주세요");
-      }
+    findPw() {
+      userHttp.post("/findPw", this.user).then(({ data }) => {
+        if (data.message === "success") {
+          alert("비밀번호는 " + data.password + "입니다!");
+          this.$router.push({ name: "userLogin" });
+        } else {
+          alert("값을 확인해주세요!");
+        }
+      });
     },
   },
 };

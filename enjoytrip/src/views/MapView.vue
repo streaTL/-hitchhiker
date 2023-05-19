@@ -142,6 +142,10 @@ export default {
     },
     makeList(data) {
       this.positions = [];
+      if (data.length == 0) {
+        alert("결과가 없습니다.");
+        return;
+      }
       let trips = data;
       console.log(trips);
       //   let tripList = ``;

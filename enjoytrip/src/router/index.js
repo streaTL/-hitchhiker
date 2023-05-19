@@ -45,6 +45,18 @@ const routes = [
     component: () => import("@/views/LoginView"),
     props: true,
   },
+  {
+    path: "/signin",
+    name: "signIn",
+    component: () => import("@/views/SignInView"),
+    props: true,
+  },
+  {
+    path: "/findpw",
+    name: "findPw",
+    component: () => import("@/views/FindPasswordView"),
+    props: true,
+  },
 ];
 
 const router = new VueRouter({
