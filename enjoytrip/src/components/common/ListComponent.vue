@@ -1,9 +1,19 @@
 <template>
   <div
     class="card ms-2 me-2"
-    style="width: 18rem; height: 22rem; object-fit: cover; display: inline-block"
+    style="
+      width: 18rem;
+      height: 22rem;
+      object-fit: cover;
+      display: inline-block;
+    "
   >
-    <img :src="trip.firstimage" class="card-img-top" style="height: 10rem" alt="" />
+    <img
+      :src="trip.firstImage"
+      class="card-img-top"
+      style="height: 10rem"
+      alt=""
+    />
     <div class="card-body">
       <h5 class="card-title">{{ trip.title }}</h5>
       <p class="card-text">{{ trip.addr1 }}</p>
@@ -14,7 +24,7 @@
         data-bs-toggle="modal"
         :data-bs-target="modalId"
       >
-        dtail
+        detail
       </button>
       <div
         class="modal fade"
@@ -26,7 +36,9 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">{{ trip.title }}</h1>
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                <i class="fa-solid fa-hashtag ms-4 me-2"> </i> {{ trip.title }}
+              </h1>
               <button
                 type="button"
                 class="btn-close"
@@ -34,13 +46,36 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body" style="display: flex; justify-content: center">
-              <img :src="trip.firstimage" />
+            <div
+              class="modal-body"
+              style="display: flex; justify-content: center"
+            >
+              <img class="rounded" :src="trip.firstImage" />
             </div>
-            <div class="ms-5">상세설명</div>
+
+            <div class="ms-5 me-5 card-text">
+              <p>
+                <span> <i class="fa-regular fa-map me-2"></i></span>
+                {{ trip.addr1 }} {{ trip.addr2 }}
+              </p>
+            </div>
+            <div class="ms-5 me-5 card-text">
+              <p>
+                <span> <i class="fa-regular fa-pen-to-square me-2"></i></span>
+                {{ trip.overview }}
+              </p>
+            </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">
+                Save changes
+              </button>
             </div>
           </div>
         </div>

@@ -12,7 +12,11 @@
           <select id="search-area" class="form-select me-2" v-model="serchArea">
             <option value="0" selected>검색 할 지역 선택</option>
           </select>
-          <select id="search-content-id" class="form-select me-2" v-model="searchContentId">
+          <select
+            id="search-content-id"
+            class="form-select me-2"
+            v-model="searchContentId"
+          >
             <option value="0" selected>관광지 유형</option>
             <option value="12">관광지</option>
             <option value="14">문화시설</option>
@@ -32,7 +36,12 @@
             v-model="keyword"
             @keyup.enter="search"
           />
-          <button id="btn-search" class="btn btn-outline-success" type="button" @click="search">
+          <button
+            id="btn-search"
+            class="btn btn-outline-success"
+            type="button"
+            @click="search"
+          >
             검색
           </button>
         </form>
@@ -42,8 +51,12 @@
       <div id="map" class="mb-5 ms-auto me-auto"></div>
     </section>
     <div style="display: flex; justify-content: center">
-      <div class="mb-auto ms-3 me-3" style="flex-wrap: wrap; width: 80%">
-        <list-component v-for="(trip, index) in trips" :key="index" :trip="trip"></list-component>
+      <div class="mb-auto ms-3 me-3 row" style="flex-wrap: wrap; width: 80%">
+        <list-component
+          v-for="(trip, index) in trips"
+          :key="index"
+          :trip="trip"
+        ></list-component>
       </div>
     </div>
   </div>
@@ -68,13 +81,15 @@ export default {
   },
   created() {},
   mounted() {
-    let areaUrl =
-      "https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=" +
-      "rr9isP1Ir1kiNMbiyyfIl60qNH9dBAdVX78tq8pYoRYcR2cvdl2a3r815EPgPMopJM%2FAD%2BrdnBCkhxfGc39YFg%3D%3D" +
-      "&numOfRows=20&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json";
+    // let areaUrl =
+    //   "https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=" +
+    //   "rr9isP1Ir1kiNMbiyyfIl60qNH9dBAdVX78tq8pYoRYcR2cvdl2a3r815EPgPMopJM%2FAD%2BrdnBCkhxfGc39YFg%3D%3D" +
+    //   "&numOfRows=20&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json";
 
     // fetch(areaUrl, { method: "GET" }).then(function (response) { return response.json() }).then(function (data) { makeOption(data); });
-    axios.get(areaUrl).then(({ data }) => this.makeOption(data.response));
+    axios
+      .get("http://localhost:80/map/sido")
+      .then(({ data }) => this.makeOption(data));
 
     if (window.kakao && window.kakao.maps) {
       this.loadMap();
@@ -84,22 +99,25 @@ export default {
   },
   methods: {
     search() {
-      let searchUrl =
-        `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?serviceKey=` +
-        "rr9isP1Ir1kiNMbiyyfIl60qNH9dBAdVX78tq8pYoRYcR2cvdl2a3r815EPgPMopJM%2FAD%2BrdnBCkhxfGc39YFg%3D%3D" +
-        `&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A`;
+      let searchUrl = "http://localhost:80/map/attrInfo";
+      // `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?serviceKey=` +
+      // "rr9isP1Ir1kiNMbiyyfIl60qNH9dBAdVX78tq8pYoRYcR2cvdl2a3r815EPgPMopJM%2FAD%2BrdnBCkhxfGc39YFg%3D%3D" +
+      // `&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A`;
       /* let searchUrl = "${root}/map/attrInfo"; */
 
       let areaCode = document.getElementById("search-area").value;
       let contentTypeId = document.getElementById("search-content-id").value;
       let keyword = document.getElementById("search-keyword").value;
 
-      if (parseInt(areaCode)) searchUrl += `&areaCode=` + this.serchArea;
-      if (parseInt(contentTypeId)) searchUrl += `&contentTypeId=` + this.searchContentId;
+      // if (parseInt(areaCode)) searchUrl += `&areaCode=` + this.serchArea;
+      // if (parseInt(contentTypeId))
+      // searchUrl += `&contentTypeId=` + this.searchContentId;
       if (!keyword) {
         alert("검색어 입력 필수!!!");
         return;
-      } else searchUrl += `&keyword=` + this.keyword;
+      }
+      // else searchUrl += `&keyword=` + this.keyword;
+
       /*  fetch(searchUrl, {
         	  method: "GET",
         	  headers: {
@@ -112,11 +130,19 @@ export default {
           .then((response) => response.json())
           .then((data) => makeList(data)); */
 
-      axios.get(searchUrl).then(({ data }) => this.makeList(data));
+      axios
+        .get(searchUrl, {
+          headers: {
+            areaCode,
+            contentTypeId,
+            keyword,
+          },
+        })
+        .then(({ data }) => this.makeList(data));
     },
     makeList(data) {
       this.positions = [];
-      let trips = data.response.body.items.item;
+      let trips = data;
       console.log(trips);
       //   let tripList = ``;
 
@@ -125,7 +151,7 @@ export default {
       trips.forEach((area) => {
         let markerInfo = {
           title: area.title,
-          latlng: new kakao.maps.LatLng(area.mapy, area.mapx),
+          latlng: new kakao.maps.LatLng(area.latitude, area.longitude),
         };
         this.positions.push(markerInfo);
       });
@@ -195,14 +221,14 @@ export default {
       console.log("마커 싹 지우자!!!222", this.markers.length);
     },
     makeOption(data) {
-      let areas = data.body.items.item;
+      let areas = data;
       console.log(areas);
       // console.log(areas);
       let sel = document.getElementById("search-area");
       areas.forEach((area) => {
         let opt = document.createElement("option");
-        opt.setAttribute("value", area.code);
-        opt.appendChild(document.createTextNode(area.name));
+        opt.setAttribute("value", area.sidoCode);
+        opt.appendChild(document.createTextNode(area.sidoName));
 
         sel.appendChild(opt);
       });
