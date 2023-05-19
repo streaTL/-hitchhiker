@@ -12,11 +12,7 @@
           <select id="search-area" class="form-select me-2" v-model="serchArea">
             <option value="0" selected>검색 할 지역 선택</option>
           </select>
-          <select
-            id="search-content-id"
-            class="form-select me-2"
-            v-model="searchContentId"
-          >
+          <select id="search-content-id" class="form-select me-2" v-model="searchContentId">
             <option value="0" selected>관광지 유형</option>
             <option value="12">관광지</option>
             <option value="14">문화시설</option>
@@ -36,12 +32,7 @@
             v-model="keyword"
             @keyup.enter="search"
           />
-          <button
-            id="btn-search"
-            class="btn btn-outline-success"
-            type="button"
-            @click="search"
-          >
+          <button id="btn-search" class="btn btn-outline-success" type="button" @click="search">
             검색
           </button>
         </form>
@@ -50,23 +41,29 @@
     <section class="map-section" id="map2">
       <div id="map" class="mb-5 ms-auto me-auto"></div>
     </section>
+    <div style="display: flex; justify-content: center">
+      <div class="mb-auto ms-3 me-3" style="flex-wrap: wrap; width: 80%">
+        <list-component v-for="(trip, index) in trips" :key="index" :trip="trip"></list-component>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-
+import ListComponent from "@/components/common/ListComponent.vue";
 export default {
   name: "MapView",
-  components: {},
+  components: { ListComponent },
   data() {
     return {
-      serchArea: "",
-      searchContentId: "",
+      serchArea: "0",
+      searchContentId: "0",
       keyword: "",
       map: null,
       positions: [],
       markers: [],
+      trips: [],
     };
   },
   created() {},
@@ -98,8 +95,7 @@ export default {
       let keyword = document.getElementById("search-keyword").value;
 
       if (parseInt(areaCode)) searchUrl += `&areaCode=` + this.serchArea;
-      if (parseInt(contentTypeId))
-        searchUrl += `&contentTypeId=` + this.searchContentId;
+      if (parseInt(contentTypeId)) searchUrl += `&contentTypeId=` + this.searchContentId;
       if (!keyword) {
         alert("검색어 입력 필수!!!");
         return;
@@ -123,6 +119,8 @@ export default {
       let trips = data.response.body.items.item;
       console.log(trips);
       //   let tripList = ``;
+
+      this.trips = trips;
 
       trips.forEach((area) => {
         let markerInfo = {
