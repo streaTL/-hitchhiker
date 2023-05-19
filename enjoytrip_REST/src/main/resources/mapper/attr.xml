@@ -33,11 +33,17 @@
 	<select id="sido" resultMap="sido">
 		select * from sido
 	</select>
-
-	<select id="attrInfo" parameterType="String" resultMap="attr">
-		select * from attraction_info
+	
+	<select id="attrInfo" parameterType="String" resultMap="attrDesc">
+		select ai.content_id, content_type_id, title, addr1, addr2, zipcode, tel, first_image, first_image2, readcount, sido_code, gugun_code, latitude, longitude, mlevel, ad.homepage, ad.overview 
+		from attraction_description ad left join attraction_info ai on ai.content_id = ad.content_id
 		where sido_code = #{areaCode} and content_type_id = #{contentTypeId} and title like CONCAT('%', #{keyword}, '%')
 	</select>
+
+	<!-- <select id="attrInfo" parameterType="String" resultMap="attr">
+		select * from attraction_info
+		where sido_code = #{areaCode} and content_type_id = #{contentTypeId} and title like CONCAT('%', #{keyword}, '%')
+	</select> -->
 	
 	<select id="attrDetailInfo" parameterType="String" resultMap="attrDesc">
 		select overview from attraction_description
