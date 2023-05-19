@@ -74,6 +74,28 @@ export default new Vuex.Store({
         throw error;
       }
     },
+    async deleteUser({ commit }, userId) {
+      try {
+        const response = await user.post("/delete/" + userId);
+
+        if (response.data.message === "success") {
+          console.log("탈퇴 성공");
+          commit("SET_IS_LOGIN", false);
+          commit("SET_USERINFO", "");
+          sessionStorage.removeItem("access-token", "");
+          sessionStorage.removeItem("refresh-token", "");
+          alert("탈퇴 성공");
+          return true;
+        } else {
+          commit("SET_IS_LOGIN", false);
+          commit("SET_USERINFO", "");
+          return false;
+        }
+      } catch (error) {
+        console.log("탈퇴 오류: ", error);
+        throw error;
+      }
+    },
   },
   modules: {},
 

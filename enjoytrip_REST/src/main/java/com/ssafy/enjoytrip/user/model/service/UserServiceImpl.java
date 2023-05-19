@@ -65,4 +65,15 @@ public class UserServiceImpl implements UserService {
 		userMapper.deleteRefreshToken(map);
 	}
 
+	@Override
+	public String findPw(UserDto userDto) {
+		return userMapper.findPw(userDto);
+	}
+
+	@Override
+	public void deleteUser(String userId) {
+		userMapper.deleteUser(userId);
+		
+	}
+
 }

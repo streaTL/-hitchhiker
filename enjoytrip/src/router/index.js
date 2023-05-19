@@ -57,6 +57,12 @@ const routes = [
     component: () => import("@/views/FindPasswordView"),
     props: true,
   },
+  {
+    path: "/mypage",
+    name: "MyPage",
+    component: () => import("@/views/MyPageView"),
+    props: true,
+  },
 ];
 
 const router = new VueRouter({

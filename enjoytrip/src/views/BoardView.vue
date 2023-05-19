@@ -3,7 +3,9 @@
     <section class="page-section masthead" id="contact">
       <div class="container">
         <!-- Contact Section Heading-->
-        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">
+        <h2
+          class="page-section-heading text-center text-uppercase text-secondary mb-0"
+        >
           {{ msg }}게시판
         </h2>
         <!-- Icon Divider-->
@@ -39,19 +41,29 @@
           <div>
             <ul class="pagination justify-content-center">
               <li>
-                <a href="#" style="margin-right: 5px" class="text-secondary">◀ </a>
+                <a href="#" style="margin-right: 5px" class="text-secondary"
+                  >◀
+                </a>
               </li>
               <li>
-                <a href="#" style="margin-right: 5px" class="text-secondary">1 </a>
+                <a href="#" style="margin-right: 5px" class="text-secondary"
+                  >1
+                </a>
               </li>
               <li>
-                <a href="#" style="margin-right: 5px" class="text-secondary">2 </a>
+                <a href="#" style="margin-right: 5px" class="text-secondary"
+                  >2
+                </a>
               </li>
               <li>
-                <a href="#" style="margin-right: 5px" class="text-secondary">3 </a>
+                <a href="#" style="margin-right: 5px" class="text-secondary"
+                  >3
+                </a>
               </li>
               <li>
-                <a href="#" style="margin-right: 5px" class="text-secondary">▶ </a>
+                <a href="#" style="margin-right: 5px" class="text-secondary"
+                  >▶
+                </a>
               </li>
             </ul>
           </div>
@@ -85,6 +97,7 @@
 <script>
 import BoardListItem from "@/components/board/BoardListItem.vue";
 import http from "@/api/http";
+import { mapState } from "vuex";
 
 export default {
   name: "BoardView",
@@ -109,6 +122,15 @@ export default {
       http.get("/board/freeList").then((response) => {
         this.boards = response.data;
       });
+    }
+  },
+  computed: {
+    ...mapState(["isLogin"]),
+  },
+  beforeMount() {
+    if (this.isLogin == false) {
+      alert("로그인이 필요합니다!");
+      this.$router.push({ name: "userLogin" });
     }
   },
   watch: {

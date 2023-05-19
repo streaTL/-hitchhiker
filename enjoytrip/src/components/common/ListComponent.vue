@@ -1,19 +1,9 @@
 <template>
   <div
-    class="card ms-2 me-2"
-    style="
-      width: 18rem;
-      height: 22rem;
-      object-fit: cover;
-      display: inline-block;
-    "
+    class="card ms-2 me-2 mb-2"
+    style="width: 18rem; height: 22rem; object-fit: cover; display: inline-block"
   >
-    <img
-      :src="trip.firstImage"
-      class="card-img-top"
-      style="height: 10rem"
-      alt=""
-    />
+    <img :src="trip.firstImage" class="card-img-top mt-2" style="height: 10rem" />
     <div class="card-body">
       <h5 class="card-title">{{ trip.title }}</h5>
       <p class="card-text">{{ trip.addr1 }}</p>
@@ -23,6 +13,7 @@
         type="button"
         data-bs-toggle="modal"
         :data-bs-target="modalId"
+        style="position: absolute; bottom: 10px; right: 15px"
       >
         detail
       </button>
@@ -46,11 +37,8 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div
-              class="modal-body"
-              style="display: flex; justify-content: center"
-            >
-              <img class="rounded" :src="trip.firstImage" />
+            <div class="modal-body" style="display: flex; justify-content: center">
+              <img class="img-fluid" :src="trip.firstImage" />
             </div>
 
             <div class="ms-5 me-5 card-text">
@@ -66,16 +54,8 @@
               </p>
             </div>
             <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" class="btn btn-primary">
-                Save changes
-              </button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
             </div>
           </div>
         </div>

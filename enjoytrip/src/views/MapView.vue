@@ -51,7 +51,10 @@
       <div id="map" class="mb-5 ms-auto me-auto"></div>
     </section>
     <div style="display: flex; justify-content: center">
-      <div class="mb-auto ms-3 me-3 row" style="flex-wrap: wrap; width: 80%">
+      <div
+        class="mb-auto ms-3 me-3 row"
+        style="flex-wrap: wrap; width: 80%; position: relative"
+      >
         <list-component
           v-for="(trip, index) in trips"
           :key="index"

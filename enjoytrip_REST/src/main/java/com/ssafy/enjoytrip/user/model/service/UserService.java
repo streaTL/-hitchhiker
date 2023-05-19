@@ -12,4 +12,6 @@ public interface UserService {
 	UserDto userInfo(String userid) throws Exception;
 	void saveRefreshToken(String id, String refreshToken);
 	void deleteRefreshToken(String userid);
+	String findPw(UserDto userDto);
+	void deleteUser(String userId);
 }

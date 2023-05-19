@@ -12,13 +12,19 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import com.ssafy.enjoytrip.exception.UnAuthorizedException;
 import com.ssafy.enjoytrip.user.model.service.JwtService;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+
 @Component
 public class JwtInterceptor implements HandlerInterceptor {
 
 	public static final Logger logger = LoggerFactory.getLogger(JwtInterceptor.class);
 
 	private static final String HEADER_AUTH = "auth-token";
-
+	
+	private String jwt = null;
+	
 	@Autowired
 	private JwtService jwtService;
 
@@ -35,5 +41,6 @@ public class JwtInterceptor implements HandlerInterceptor {
 		}
 
 	}
+	
 
 }

@@ -82,12 +82,13 @@ public class UserController {
 		logger.debug("userid : {} ", userid);
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.UNAUTHORIZED;
+		System.out.println(request.getHeader("access-token"));
 		if (jwtService.checkToken(request.getHeader("access-token"))) {
 			logger.info("사용 가능한 토큰!!!");
 			try {
 //				로그인 사용자 정보.
-//				UserDto memberDto = userService.userInfo(userid);
-//				resultMap.put("userInfo", memberDto);
+				UserDto memberDto = userService.userInfo(userid);
+				resultMap.put("userInfo", memberDto);
 				resultMap.put("message", "success");
 				status = HttpStatus.ACCEPTED;
 			} catch (Exception e) {
@@ -147,7 +148,8 @@ public class UserController {
 	
 	
 	@PostMapping("/regist")
-	public ResponseEntity<?> regist(UserDto userDto) throws Exception {
+	public ResponseEntity<?> regist(@RequestBody UserDto userDto) throws Exception {
+		System.out.println(userDto);
 		try {
 			userService.registUser(userDto);			
 			return new ResponseEntity<>(HttpStatus.OK);
@@ -166,9 +168,32 @@ public class UserController {
 		if (temp == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} else {
-			userDto.setPassword(userDto.getPassword());
 			return new ResponseEntity<>(temp, HttpStatus.OK);
 		}
 	}
-
+	
+	@PostMapping("/findPw")
+	public ResponseEntity<?> findPw(@RequestBody UserDto userDto){
+		System.out.println(userDto);
+		String password = userService.findPw(userDto);
+		HashMap<String, String> result = new HashMap<>();
+		if(password != null) {
+			result.put("password", password);
+			result.put("message", "success");
+		}else {
+			System.out.println("실패");
+			result.put("message", "fail");
+		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@PostMapping("/delete/{userId}")
+	public ResponseEntity<?> deleteUser(@PathVariable String userId){
+		System.out.println(userId);
+		HashMap<String, String> result = new HashMap<>();
+		userService.deleteUser(userId);
+		result.put("message", "success");
+		
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
 }

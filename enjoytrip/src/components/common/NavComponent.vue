@@ -24,6 +24,7 @@
               <router-link
                 class="btn-secondary nav-link py-3 px-0 px-lg-3 rounded"
                 to="/map"
+                style="font-weight: bold"
                 >Search</router-link
               >
               <!-- <a
@@ -35,16 +36,18 @@
             <li class="nav-ityem mx-0 mx-lg-1">
               <div class="dropdown">
                 <button
-                  class="btn btn-secondary border-0 dropdown-toggle py-3 px-0 px-lg-3 rounded"
+                  class="btn btn-secondary border-0 dropdown-toggle py-6 px-0 px-lg-3 rounded"
                   type="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
+                  style="font-weight: bold"
                 >
                   Board
                 </button>
                 <ul class="dropdown-menu">
                   <li>
                     <router-link
+                      style="font-weight: bold"
                       class="dropdown-item"
                       :to="{
                         name: `board1`,
@@ -56,6 +59,7 @@
                       >anounce</router-link
                     >
                     <router-link
+                      style="font-weight: bold"
                       class="dropdown-item"
                       :to="{
                         name: `board2`,
@@ -77,7 +81,7 @@
               <router-link
                 class="nav-link btn-secondary py-3 px-0 px-lg-3 rounded"
                 to="/login"
-                style="display: block"
+                style="display: block; font-weight: bold"
                 id="loginNavBtn"
                 >Login</router-link
               >
@@ -97,6 +101,7 @@
               <a
                 class="nav-link btn-secondary border-0 py-3 px-0 px-lg-3 rounded"
                 type="button"
+                style="font-weight: bold"
                 v-on:click="doLogout"
                 value="Logout"
               >

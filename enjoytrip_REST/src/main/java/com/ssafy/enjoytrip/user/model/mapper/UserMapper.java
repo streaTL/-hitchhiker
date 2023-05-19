@@ -16,4 +16,6 @@ public interface UserMapper {
 	UserDto userInfo(String userid);
 	void saveRefreshToken(String userId, String refreshToken);
 	void deleteRefreshToken(Map<String, String> map);
+	String findPw(UserDto userDto);
+	void deleteUser(String userId);
 }
