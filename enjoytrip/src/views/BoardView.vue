@@ -21,11 +21,11 @@
           <table class="table board border-1" id="announce-board">
             <thead>
               <tr>
-                <th>번호</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>조회수</th>
-                <th>날짜</th>
+                <th style="width: 15%">번호</th>
+                <th style="width: 30%">제목</th>
+                <th style="width: 15%">작성자</th>
+                <th style="width: 15%">조회수</th>
+                <th style="width: 25%">날짜</th>
               </tr>
             </thead>
             <tbody>
@@ -78,7 +78,12 @@
               >글쓰기</router-link
             >
             <div style="display: flex">
-              <input type="text" v-model="keyword" class="mt-3 me-3" />
+              <input
+                type="text"
+                v-model="keyword"
+                class="mt-3 me-3"
+                @keyup.enter="serch"
+              />
               <button
                 type="button"
                 @click="serch"
