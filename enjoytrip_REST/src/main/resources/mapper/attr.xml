@@ -21,18 +21,27 @@
 		<result column="mlevel" property="mlevel"/>
 	</resultMap>
 	
-	<resultMap type="SidoDto" id="sido">
+	<resultMap type="attractionInfoDto" id="attrDesc" extends="attr">
+		<result column="overview" property="overview"/>
+	</resultMap>
+	
+	<resultMap type="sidoDto" id="sido">
 		<result column="sido_code" property="sidoCode"/>
 		<result column="sido_name" property="sidoName"/>
 	</resultMap>
 	
-	<select id="sido" resultMap="SidoDto">
+	<select id="sido" resultMap="sido">
 		select * from sido
 	</select>
 
-	<select id="attrInfo" parameterType="String" resultMap="attractionInfoDto">
+	<select id="attrInfo" parameterType="String" resultMap="attr">
 		select * from attraction_info
 		where sido_code = #{areaCode} and content_type_id = #{contentTypeId} and title like CONCAT('%', #{keyword}, '%')
+	</select>
+	
+	<select id="attrDetailInfo" parameterType="String" resultMap="attrDesc">
+		select overview from attraction_description
+		where content_id = #{contentId}
 	</select>
 	
 

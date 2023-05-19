@@ -1,6 +1,7 @@
 package com.ssafy.enjoytrip.user.model.mapper;
 
 import java.sql.SQLException;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,4 +13,7 @@ public interface UserMapper {
 	int registUser(UserDto userDto) throws SQLException;
 	UserDto loginUser(String userId, String userPw) throws SQLException;
 	void modifyUser(UserDto userDto) throws SQLException;
+	UserDto userInfo(String userid);
+	void saveRefreshToken(String userId, String refreshToken);
+	void deleteRefreshToken(Map<String, String> map);
 }

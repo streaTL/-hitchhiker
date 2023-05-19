@@ -15,6 +15,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.ssafy.enjoytrip.exception.UnAuthorizedException;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -105,10 +106,15 @@ public class JwtServiceImpl implements JwtService {
 //			Claims 는 Map의 구현체 형태
 			logger.debug("claims: {}", claims);
 			return true;
-		} catch (Exception e) {
+		}catch(ExpiredJwtException e) {
+			
+			
+			return true;
+		}catch (Exception e) {
 //			if (logger.isInfoEnabled()) {
 //				e.printStackTrace();
 //			} else {
+			System.out.println(e);
 			logger.error(e.getMessage());
 //			}
 //			throw new UnauthorizedException();

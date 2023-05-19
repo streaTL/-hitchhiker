@@ -9,4 +9,7 @@ public interface UserService {
 	int registUser(UserDto userDto) throws SQLException;
 	UserDto loginUser(String userId, String userPw) throws SQLException;
 	void modifyUser(UserDto userDto) throws SQLException;
+	UserDto userInfo(String userid) throws Exception;
+	void saveRefreshToken(String id, String refreshToken);
+	void deleteRefreshToken(String userid);
 }

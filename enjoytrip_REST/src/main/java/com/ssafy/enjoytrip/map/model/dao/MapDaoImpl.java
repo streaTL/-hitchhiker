@@ -78,4 +78,10 @@ public class MapDaoImpl implements MapDao{
 		}
 		return attrInfos;
 	}
+
+	@Override
+	public List<attractionInfoDto> attrDetailInfo(String contentId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

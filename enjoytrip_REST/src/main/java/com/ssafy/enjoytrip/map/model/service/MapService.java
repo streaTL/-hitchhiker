@@ -7,6 +7,6 @@ import com.ssafy.enjoytrip.map.model.attractionInfoDto;
 
 public interface MapService {
 	List<SidoDto> sido() throws Exception;
-
 	List<attractionInfoDto> attrInfo(String areaCode, String contentTypeId, String keyword) throws Exception;
+	List<attractionInfoDto> attrDetailInfo(String contentId);
 }

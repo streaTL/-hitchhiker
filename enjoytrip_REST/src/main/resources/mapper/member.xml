@@ -28,9 +28,26 @@
 		where user_id = #{userId} and user_password = #{userPw}
 	</select>
 	
+	<select id="userInfo" parameterType="String" resultMap="member">
+		select *
+		from members
+		where user_id = #{userid}
+	</select>
+	
 	<update id="modifyUser" parameterType="userDto">
 		update members set user_password = #{password}, email = #{email}
 		where user_id = #{id}
+	</update>
+	
+	<update id="saveRefreshToken" parameterType="String">
+		update members set token = #{refreshToken}
+		where user_id = #{userId}
+	</update>
+	
+	<update id="deleteRefreshToken" parameterType="map">
+		update members
+		set token = #{token, jdbcType=VARCHAR}
+		where user_id = #{userid}
 	</update>
 
 </mapper>

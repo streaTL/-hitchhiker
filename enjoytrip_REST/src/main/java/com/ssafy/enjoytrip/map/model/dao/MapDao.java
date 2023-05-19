@@ -10,4 +10,6 @@ public interface MapDao {
 	List<SidoDto> sido() throws SQLException;
 
 	List<attractionInfoDto> attrInfo(String areaCode, String contentTypeId, String keyword) throws SQLException;
+
+	List<attractionInfoDto> attrDetailInfo(String contentId);
 }
