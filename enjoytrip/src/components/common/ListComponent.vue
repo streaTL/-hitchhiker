@@ -98,7 +98,7 @@ export default {
     trip: [],
   },
   created() {
-    this.id = "id" + this.trip.contentid;
+    this.id = "id" + this.trip.contentId;
     this.modalId = "#" + this.id;
   },
   methods: {},
