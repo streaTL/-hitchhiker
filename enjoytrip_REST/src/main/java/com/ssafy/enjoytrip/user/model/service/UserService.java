@@ -14,4 +14,6 @@ public interface UserService {
 	void deleteRefreshToken(String userid);
 	String findPw(UserDto userDto);
 	void deleteUser(String userId);
+
+	String getRefreshToken(String id);
 }

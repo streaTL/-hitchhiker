@@ -23,8 +23,8 @@ public class WebMvcConfigurator implements WebMvcConfigurer{
 		registry.addMapping("/**").allowedOrigins("*");
 	}
 	
-//	@Override
-//	public void addInterceptors(InterceptorRegistry registry) {
-//		registry.addInterceptor(jwtInterceptor).addPathPatterns("/board/*");
-//	}
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(jwtInterceptor).addPathPatterns("/board/*", "/user/info", "/user/editUser", "/user/findPw", "/user/delete");
+	}
 }

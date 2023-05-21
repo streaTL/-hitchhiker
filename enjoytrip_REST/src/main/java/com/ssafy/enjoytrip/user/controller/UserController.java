@@ -122,29 +122,29 @@ public class UserController {
 
 	}
 
-//	@ApiOperation(value = "Access Token 재발급", notes = "만료된 access token을 재발급받는다.", response = Map.class)
-//	@PostMapping("/refresh")
-//	public ResponseEntity<?> refreshToken(@RequestBody UserDto memberDto, HttpServletRequest request)
-//			throws Exception {
-//		Map<String, Object> resultMap = new HashMap<>();
-//		HttpStatus status = HttpStatus.ACCEPTED;
-//		String token = request.getHeader("refresh-token");
-//		logger.debug("token : {}, memberDto : {}", token, memberDto);
-//		if (jwtService.checkToken(token)) {
-//			if (token.equals(userService.getRefreshToken(memberDto.getId()))) {
-//				String accessToken = jwtService.createAccessToken("userid", memberDto.getId());
-//				logger.debug("token : {}", accessToken);
-//				logger.debug("정상적으로 액세스토큰 재발급!!!");
-//				resultMap.put("access-token", accessToken);
-//				resultMap.put("message", SUCCESS);
-//				status = HttpStatus.ACCEPTED;
-//			}
-//		} else {
-//			logger.debug("리프레쉬토큰도 사용불!!!!!!!");
-//			status = HttpStatus.UNAUTHORIZED;
-//		}
-//		return new ResponseEntity<Map<String, Object>>(resultMap, status);
-//	}
+	@ApiOperation(value = "Access Token 재발급", notes = "만료된 access token을 재발급받는다.", response = Map.class)
+	@PostMapping("/refresh")
+	public ResponseEntity<?> refreshToken(@RequestBody UserDto memberDto, HttpServletRequest request)
+			throws Exception {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+		String token = request.getHeader("refresh-token");
+		logger.debug("token : {}, memberDto : {}", token, memberDto);
+		if (jwtService.checkToken(token)) {
+			if (token.equals(userService.getRefreshToken(memberDto.getId()))) {
+				String accessToken = jwtService.createAccessToken("userid", memberDto.getId());
+				logger.debug("token : {}", accessToken);
+				logger.debug("정상적으로 액세스토큰 재발급!!!");
+				resultMap.put("access-token", accessToken);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			}
+		} else {
+			logger.debug("리프레쉬토큰도 사용불!!!!!!!");
+			status = HttpStatus.UNAUTHORIZED;
+		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
 	
 	
 	@PostMapping("/regist")

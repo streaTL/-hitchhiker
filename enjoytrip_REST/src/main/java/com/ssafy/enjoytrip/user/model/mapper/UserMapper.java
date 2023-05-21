@@ -18,4 +18,6 @@ public interface UserMapper {
 	void deleteRefreshToken(Map<String, String> map);
 	String findPw(UserDto userDto);
 	void deleteUser(String userId);
+
+	String getRefreshToken(String id);
 }

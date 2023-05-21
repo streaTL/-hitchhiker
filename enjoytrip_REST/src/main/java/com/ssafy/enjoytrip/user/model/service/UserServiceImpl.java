@@ -76,4 +76,9 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	@Override
+	public String getRefreshToken(String id) {
+		return userMapper.getRefreshToken(id);
+	}
+
 }

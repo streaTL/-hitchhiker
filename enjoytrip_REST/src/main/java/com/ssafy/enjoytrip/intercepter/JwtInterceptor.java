@@ -15,6 +15,7 @@ import com.ssafy.enjoytrip.user.model.service.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
+import org.springframework.web.servlet.ModelAndView;
 
 @Component
 public class JwtInterceptor implements HandlerInterceptor {
@@ -41,6 +42,9 @@ public class JwtInterceptor implements HandlerInterceptor {
 		}
 
 	}
-	
 
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+		HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
+	}
 }
