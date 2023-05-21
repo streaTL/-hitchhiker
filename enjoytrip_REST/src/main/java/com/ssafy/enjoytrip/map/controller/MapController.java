@@ -37,7 +37,13 @@ public class MapController {
 	public ResponseEntity<?> sido() throws Exception{
 		return new ResponseEntity<>(mapService.sido(), HttpStatus.OK);
 	}
-	
+
+	@GetMapping("/ramAttrInfo")
+	@ResponseBody
+	public ResponseEntity<?>  randAttrInfo() throws Exception {
+		List<attractionInfoDto> attrInfos = mapService.randAttrInfo();
+		return new ResponseEntity<>(attrInfos, HttpStatus.OK);
+	}
 	
 	@GetMapping("/attrInfo")
 	@ResponseBody

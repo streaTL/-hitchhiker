@@ -34,4 +34,9 @@ public class MapServiceImpl implements MapService {
 		return mapMapper.attrDetailInfo(contentId);
 	}
 
+	@Override
+	public List<attractionInfoDto> randAttrInfo() {
+		return mapMapper.randAttrInfo();
+	}
+
 }
