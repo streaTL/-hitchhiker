@@ -14,9 +14,7 @@
           <h5 class="card-title">{{ plan.title }}</h5>
           <p class="card-text">{{ plan.addr1 }}</p>
           <p class="card-text">
-            <button type="button" class="btn btn-primary" @click="deleteplan">
-              여행지 삭제
-            </button>
+            <button type="button" class="btn btn-primary" @click="deleteplan">여행지 삭제</button>
           </p>
         </div>
       </div>
@@ -36,7 +34,7 @@ export default {
   },
   props: {
     plan: [],
-    index: String,
+    index: Number,
   },
   created() {},
   methods: {
