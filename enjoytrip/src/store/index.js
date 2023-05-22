@@ -28,6 +28,9 @@ export default new Vuex.Store({
     SET_PLAN(state, attr) {
       state.plans.push(attr);
     },
+    DELETE_PLAN(state, index) {
+      state.plans.splice(index, 1);
+    },
   },
   actions: {
     async login({ commit }, user2) {

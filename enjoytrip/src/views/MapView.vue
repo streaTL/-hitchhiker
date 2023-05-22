@@ -47,13 +47,18 @@
         </form>
       </div>
     </section>
-    <section class="map-section" id="map2">
-      <div id="map" class="mb-5 ms-5 me-3"></div>
-      <div style="float: left">
+    <section
+      class="map-section"
+      id="map2"
+      style="display: flex; justify-content: center"
+    >
+      <div id="map" class="mb-5 me-3"></div>
+      <div style="float: left; height: 500px; overflow-y: scroll">
         <plan-component
           v-for="(plan, index) in plans"
           :key="index"
           :plan="plan"
+          :index="index"
         ></plan-component>
       </div>
     </section>
@@ -128,8 +133,7 @@ export default {
       // if (parseInt(contentTypeId))
       // searchUrl += `&contentTypeId=` + this.searchContentId;
       if (!keyword) {
-        alert("검색어 입력 필수!!!");
-        return;
+        keyword = "";
       }
       // else searchUrl += `&keyword=` + this.keyword;
 
@@ -144,16 +148,28 @@ export default {
         	})
           .then((response) => response.json())
           .then((data) => makeList(data)); */
-
+      console.log(keyword);
       axios
-        .get(searchUrl, {
-          headers: {
-            areaCode,
-            contentTypeId,
-            keyword,
+        .get(
+          searchUrl,
+          {
+            params: {
+              areaCode,
+              contentTypeId,
+              keyword,
+            },
           },
-        })
-        .then(({ data }) => this.makeList(data));
+
+          {
+            headers: {
+              "Content-Type": "application/json;charset=utf-8",
+            },
+          }
+        )
+        .then(({ data }) => {
+          console.log(data);
+          this.makeList(data);
+        });
     },
     makeList(data) {
       this.positions = [];
@@ -258,7 +274,7 @@ export default {
 
 <style scoped>
 #map {
-  width: 60%;
+  width: 55%;
   height: 500px;
   float: left;
 }
