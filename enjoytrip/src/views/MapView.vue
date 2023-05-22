@@ -48,7 +48,14 @@
       </div>
     </section>
     <section class="map-section" id="map2">
-      <div id="map" class="mb-5 ms-auto me-auto"></div>
+      <div id="map" class="mb-5 ms-5 me-3"></div>
+      <div style="float: left">
+        <plan-component
+          v-for="(plan, index) in plans"
+          :key="index"
+          :plan="plan"
+        ></plan-component>
+      </div>
     </section>
     <div style="display: flex; justify-content: center">
       <div
@@ -68,9 +75,11 @@
 <script>
 import axios from "axios";
 import ListComponent from "@/components/common/ListComponent.vue";
+import PlanComponent from "@/components/common/PlanComponent.vue";
+import { mapState } from "vuex";
 export default {
   name: "MapView",
-  components: { ListComponent },
+  components: { ListComponent, PlanComponent },
   data() {
     return {
       serchArea: "0",
@@ -81,6 +90,9 @@ export default {
       markers: [],
       trips: [],
     };
+  },
+  computed: {
+    ...mapState(["plans"]),
   },
   created() {},
   mounted() {
@@ -246,7 +258,8 @@ export default {
 
 <style scoped>
 #map {
-  width: 80%;
+  width: 60%;
   height: 500px;
+  float: left;
 }
 </style>

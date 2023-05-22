@@ -83,7 +83,11 @@
 	</delete>
 
 	<select id="search"  parameterType="String" resultMap="article">
-		select * from board where type=#{type} and subject like CONCAT('%', #{keyword}, '%')
+		select * from board where type=#{type}
+		<if test="keyword != null">
+		 and subject like CONCAT('%', #{keyword}, '%')
+		</if>
+		
 	</select>
 	
 </mapper>

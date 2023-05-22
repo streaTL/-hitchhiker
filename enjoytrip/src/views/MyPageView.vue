@@ -108,13 +108,20 @@ export default {
   methods: {
     ...mapActions(["deleteUser"]),
     abled() {
+      let accessToken = sessionStorage.getItem("access-token");
       if (this.able === true) {
         this.able = !this.able;
       } else {
-        userHttp.post("/editUser", this.user).then(({ data }) => {
-          console.log(data);
-          this.user = data;
-        });
+        userHttp
+          .post("/editUser", this.user, {
+            headers: {
+              "auth-token": accessToken,
+            },
+          })
+          .then(({ data }) => {
+            console.log(data);
+            this.user = data;
+          });
         this.able = !this.able;
       }
     },

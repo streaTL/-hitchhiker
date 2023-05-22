@@ -46,6 +46,7 @@
 	<select id="randAttrInfo" resultMap="attrDesc">
 		select ai.content_id, content_type_id, title, addr1, addr2, zipcode, tel, first_image, first_image2, readcount, sido_code, gugun_code, latitude, longitude, mlevel, ad.homepage, ad.overview
 		from attraction_description ad left join attraction_info ai on ai.content_id = ad.content_id
+		where first_image != ""
 		order by rand()
 		limit 6;
 	</select>

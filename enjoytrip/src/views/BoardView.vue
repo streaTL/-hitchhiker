@@ -111,6 +111,7 @@ export default {
     return {
       boards: [],
       keyword: "",
+      token: "",
     };
   },
   props: {
@@ -118,15 +119,28 @@ export default {
     type: String,
   },
   created() {
-    console.log("created");
-    if (this.type == 1) {
-      http.get("/board/announceList").then((response) => {
-        this.boards = response.data;
-      });
-    } else {
-      http.get("/board/freeList").then((response) => {
-        this.boards = response.data;
-      });
+    let accessToken = sessionStorage.getItem("access-token");
+    if (this.isLogin == true) {
+      console.log("created");
+      if (this.type == 1) {
+        http
+          .get("/board/announceList", {
+            headers: {
+              "auth-token": accessToken,
+            },
+          })
+          .then((response) => {
+            this.boards = response.data;
+          });
+      } else {
+        http
+          .get("/board/freeList", {
+            headers: { "auth-token": accessToken, test: "test" },
+          })
+          .then((response) => {
+            this.boards = response.data;
+          });
+      }
     }
   },
   computed: {
@@ -142,28 +156,45 @@ export default {
     type: function (newVal, oldVal) {
       // props가 변경될 때마다 실행되는 동작
       console.log("myProp이 변경되었습니다.", newVal, oldVal);
-      if (this.type == 1) {
-        http.get("/board/announceList").then((response) => {
-          this.boards = response.data;
-        });
-      } else {
-        http.get("/board/freeList").then((response) => {
-          this.boards = response.data;
-        });
+      let accessToken = sessionStorage.getItem("access-token");
+
+      if (this.isLogin == true) {
+        if (this.type == 1) {
+          http
+            .get("/board/announceList", {
+              headers: { "auth-token": accessToken, test: "test" },
+            })
+            .then((response) => {
+              this.boards = response.data;
+            });
+        } else {
+          http
+            .get("/board/freeList", {
+              headers: { "auth-token": accessToken, test: "test" },
+            })
+            .then((response) => {
+              this.boards = response.data;
+            });
+        }
       }
     },
   },
   methods: {
     serch() {
-      http
-        .get("/board/search/" + this.keyword, {
-          headers: {
-            type: this.type,
-          },
-        })
-        .then((response) => {
-          this.boards = response.data;
-        });
+      if (this.isLogin == true) {
+        let accessToken = sessionStorage.getItem("access-token");
+        http
+          .get("/board/search/" + this.keyword, {
+            headers: {
+              type: this.type,
+              "auth-token": accessToken,
+              test: "test",
+            },
+          })
+          .then((response) => {
+            this.boards = response.data;
+          });
+      }
     },
   },
 };

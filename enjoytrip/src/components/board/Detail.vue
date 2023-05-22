@@ -70,8 +70,11 @@ export default {
     type: String,
   },
   created() {
+    let accessToken = sessionStorage.getItem("access-token");
     const url = "http://localhost/board/" + this.articleNo;
-    axios.get(url).then((data) => (this.board = data.data));
+    axios
+      .get(url, { headers: { "auth-token": accessToken } })
+      .then((data) => (this.board = data.data));
   },
   methods: {
     disabledToAble() {
@@ -81,11 +84,13 @@ export default {
       this.able = !this.able;
     },
     modifyBoard() {
+      let accessToken = sessionStorage.getItem("access-token");
       const url = "http://localhost/board/modify/" + this.articleNo;
       axios
         .post(url, {
           subject: this.board.subject,
           content: this.board.content,
+          headers: { "auth-token": accessToken },
         })
         .then((data) => console.log(data));
       let msg = "";
@@ -103,8 +108,11 @@ export default {
       });
     },
     deleteBoard() {
+      let accessToken = sessionStorage.getItem("access-token");
       const url = "http://localhost/board/delete/" + this.articleNo;
-      axios.get(url).then((data) => console.log(data));
+      axios
+        .get(url, { headers: { "auth-token": accessToken } })
+        .then((data) => console.log(data));
 
       let msg = "";
       let board;

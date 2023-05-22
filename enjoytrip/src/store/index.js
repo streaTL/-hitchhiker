@@ -14,6 +14,7 @@ export default new Vuex.Store({
   state: {
     userInfo: "",
     isLogin: false,
+    plans: [],
   },
   getters: {},
   mutations: {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     SET_IS_LOGIN(state, check) {
       console.log(state);
       state.isLogin = check;
+    },
+    SET_PLAN(state, attr) {
+      state.plans.push(attr);
     },
   },
   actions: {
@@ -76,7 +80,12 @@ export default new Vuex.Store({
     },
     async deleteUser({ commit }, userId) {
       try {
-        const response = await user.post("/delete/" + userId);
+        let accessToken = sessionStorage.getItem("access-token");
+        const response = await user.post("/delete/" + userId, {
+          headers: {
+            "auth-token": accessToken,
+          },
+        });
 
         if (response.data.message === "success") {
           console.log("탈퇴 성공");

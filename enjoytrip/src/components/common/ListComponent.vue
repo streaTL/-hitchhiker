@@ -1,9 +1,18 @@
 <template>
   <div
     class="card ms-2 me-2 mb-2"
-    style="width: 18rem; height: 22rem; object-fit: cover; display: inline-block"
+    style="
+      width: 18rem;
+      height: 22rem;
+      object-fit: cover;
+      display: inline-block;
+    "
   >
-    <img :src="trip.firstImage" class="card-img-top mt-2" style="height: 10rem" />
+    <img
+      :src="trip.firstImage"
+      class="card-img-top mt-2"
+      style="height: 10rem"
+    />
     <div class="card-body">
       <h5 class="card-title">{{ trip.title }}</h5>
       <p class="card-text">{{ trip.addr1 }}</p>
@@ -37,7 +46,10 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body" style="display: flex; justify-content: center">
+            <div
+              class="modal-body"
+              style="display: flex; justify-content: center"
+            >
               <img class="img-fluid" :src="trip.firstImage" />
             </div>
 
@@ -54,8 +66,16 @@
               </p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary" @click="attrAdd">
+                여행지 추가
+              </button>
             </div>
           </div>
         </div>
@@ -65,6 +85,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   name: "ListComponent",
   components: {},
@@ -81,7 +102,12 @@ export default {
     this.id = "id" + this.trip.contentId;
     this.modalId = "#" + this.id;
   },
-  methods: {},
+  methods: {
+    ...mapMutations(["SET_PLAN"]),
+    attrAdd() {
+      this.SET_PLAN(this.trip);
+    },
+  },
 };
 </script>
 
