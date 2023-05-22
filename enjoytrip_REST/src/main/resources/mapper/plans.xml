@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.ssafy.enjoytrip.plan.model.mapper.PlanMapper">
+
+	<resultMap type="PlanDto" id="plan">
+		<result column="plan_id" property="planId" />
+		<result column="user_id" property="userId" />
+		<result column="plan_name" property="planName" />
+		<result column="start_data" property="startDate" />
+		<result column="end_date" property="endDate" />
+		<result column="create_time" property="createDate" />
+		<result column="update_time" property="updateDate" />
+		<result column="plan_desc" property="planDesc" />
+		<collection property="planDetail" ofType="PlanDetailDto">
+			<id property="planDetailId" column="plan_detail_id" />
+			<result property="contentId" column="content_id" />
+			<result property="day" column="day" />
+			<result property="order" column="order" />
+		</collection>
+	</resultMap>
+
+	<resultMap type="PlanDetailDto" id="planDetail">
+		<result column="content_id" property="contentId" />
+		<result column="day" property="day" />
+		<result column="order" property="order" />
+	</resultMap>
+
+
+	<select id="getPlans" resultMap="plan">
+		select * from plan p join
+		plan_detail pd on p.plan_id = pd.plan_id
+	</select>
+
+	<select id="getPlanDetail" parameterType="int"
+		resultMap="planDetail">
+		select * from plan_detail where plan_id = #{planId}
+	</select>
+
+	<insert id="writePlan" parameterType="PlanDto">
+		<selectKey keyProperty="planId" resultType="int"
+			order="AFTER">
+			select last_insert_id()
+		</selectKey>
+		insert into plan(user_id, plan_name, start_date, end_date, plan_desc)
+		values(#{userId}, #{planName}, #{startDate}, #{endDate}, #{planDesc})
+	</insert>
+
+	<insert id="writePlanDetail" parameterType="PlanDto">
+		INSERT
+		INTO plan_detail (plan_id, day, content_id, `order`) VALUES
+		<foreach collection="planDetail" item="item" separator=",">
+			(#{planId}, #{item.day}, #{item.contentId}, #{item.order})
+		</foreach>
+	</insert>
+
+</mapper>
