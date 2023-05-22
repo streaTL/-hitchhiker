@@ -47,9 +47,10 @@ public class MapController {
 	
 	@GetMapping("/attrInfo")
 	@ResponseBody
-	public ResponseEntity<?>  attrInfo(@RequestHeader String areaCode,
-			@RequestHeader String contentTypeId,
-			@RequestHeader String keyword) throws Exception {
+	public ResponseEntity<?>  attrInfo(String areaCode,
+			String contentTypeId,
+			String keyword) throws Exception {
+		System.out.println(keyword);
 		List<attractionInfoDto> attrInfos = mapService.attrInfo(areaCode, contentTypeId, keyword);
 		return new ResponseEntity<>(attrInfos, HttpStatus.OK);
 	}

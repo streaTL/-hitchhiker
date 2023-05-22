@@ -38,8 +38,11 @@
 		select ai.content_id, content_type_id, title, addr1, addr2, zipcode, tel, first_image, first_image2, readcount, sido_code, gugun_code, latitude, longitude, mlevel, ad.homepage, ad.overview 
 		from attraction_description ad left join attraction_info ai on ai.content_id = ad.content_id
 		where sido_code = #{areaCode} and content_type_id = #{contentTypeId}
-		<if test="keyword != null">
+		<if test="keyword != ''">
 			and title like CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="keyword == ''">
+			limit 20
 		</if>
 	</select>
 
