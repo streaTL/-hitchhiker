@@ -21,7 +21,10 @@
                 :disabled="!able"
               ></textarea>
             </div>
-            <div style="display: flex; justify-content: flex-end">
+            <div
+              v-if="userInfo == board.userId"
+              style="display: flex; justify-content: flex-end"
+            >
               <button
                 type="button"
                 v-if="able == false"
@@ -55,6 +58,7 @@
 
 <script>
 import axios from "axios";
+import { mapState } from "vuex";
 
 export default {
   name: "boardDetail",
@@ -64,6 +68,9 @@ export default {
       board: [],
       able: false,
     };
+  },
+  computed: {
+    ...mapState(["userInfo"]),
   },
   props: {
     articleNo: Number,

@@ -1,15 +1,30 @@
 <template>
   <div
     class="card ms-2 me-2 mb-2"
-    style="width: 18rem; height: 22rem; object-fit: cover; display: inline-block"
+    style="
+      width: 18rem;
+      height: 22rem;
+      object-fit: cover;
+      display: inline-block;
+    "
   >
-    <img :src="plan.planDetail[0].imgSrc" class="card-img-top mt-2" style="height: 10rem" />
+    <img
+      :src="plan.planDetail[0].imgSrc"
+      class="card-img-top mt-2"
+      style="height: 10rem"
+    />
     <div class="card-body">
       <h5 class="card-title">이름: {{ plan.planName }}</h5>
       <p class="card-text">작성자: {{ plan.userId }}</p>
       <!-- <a href="" class="btn btn-primary">Go somewhere</a> -->
       <button
-        style="position: absolute; bottom: 13px; left: 15px; border: none; background-color: white"
+        style="
+          position: absolute;
+          bottom: 13px;
+          left: 15px;
+          border: none;
+          background-color: white;
+        "
         @click="like"
       >
         <i class="fa-regular fa-heart"></i>
@@ -68,8 +83,21 @@
               </p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" @click="deletePlan">계획 삭제</button>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button
+                v-if="userInfo == plan.userId"
+                type="button"
+                class="btn btn-primary"
+                @click="deletePlan"
+              >
+                계획 삭제
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
             </div>
           </div>
         </div>
@@ -81,6 +109,7 @@
 <script>
 import PlanDetailComponent from "../common/PlanDetailComponent.vue";
 import http from "@/api/http";
+import { mapState } from "vuex";
 export default {
   name: "PlanListComponent",
   components: { PlanDetailComponent },
@@ -90,6 +119,9 @@ export default {
       Id: "",
       likeCnt: "",
     };
+  },
+  computed: {
+    ...mapState(["userInfo"]),
   },
   props: {
     plan: [],
