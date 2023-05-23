@@ -1,6 +1,10 @@
 <template>
   <div>
-    <section class="page-section map-section" style="margin-top: 120px" id="map1">
+    <section
+      class="page-section map-section"
+      style="margin-top: 120px"
+      id="map1"
+    >
       <div class="row">
         <!-- 관광지 검색 start -->
         <form
@@ -12,7 +16,11 @@
           <select id="search-area" class="form-select me-2" v-model="serchArea">
             <option value="0" selected>검색 할 지역 선택</option>
           </select>
-          <select id="search-content-id" class="form-select me-2" v-model="searchContentId">
+          <select
+            id="search-content-id"
+            class="form-select me-2"
+            v-model="searchContentId"
+          >
             <option value="0" selected>관광지 유형</option>
             <option value="12">관광지</option>
             <option value="14">문화시설</option>
@@ -32,16 +40,27 @@
             v-model="keyword"
             @keyup.enter="search"
           />
-          <button id="btn-search" class="btn btn-outline-success" type="button" @click="search">
+          <button
+            id="btn-search"
+            class="btn btn-outline-success"
+            type="button"
+            @click="search"
+          >
             검색
           </button>
         </form>
       </div>
     </section>
-    <section class="map-section" id="map2" style="display: flex; justify-content: center">
+    <section
+      class="map-section"
+      id="map2"
+      style="display: flex; justify-content: center"
+    >
       <div id="map" class="mb-5 me-3"></div>
       <div style="display: flex; flex-direction: column">
-        <div style="float: left; height: 445px; width: 450px; overflow-y: scroll">
+        <div
+          style="float: left; height: 445px; width: 450px; overflow-y: scroll"
+        >
           <plan-component
             v-for="(plan, index) in plans"
             :key="index"
@@ -50,7 +69,12 @@
           ></plan-component>
         </div>
         <div class="mt-3">
-          <button type="button" class="btn btn-primary" style="width: 200px" @click="deleteplans">
+          <button
+            type="button"
+            class="btn btn-primary"
+            style="width: 200px"
+            @click="deleteplans"
+          >
             목록삭제
           </button>
           <button
@@ -73,7 +97,9 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">여행 계획 작성!</h1>
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    여행 계획 작성!
+                  </h1>
                   <button
                     type="button"
                     class="btn-close"
@@ -84,7 +110,9 @@
                 <div class="modal-body">
                   <form>
                     <div class="mb-3">
-                      <label for="recipient-name" class="col-form-label">여행이름:</label>
+                      <label for="recipient-name" class="col-form-label"
+                        >여행이름:</label
+                      >
                       <input
                         type="text"
                         class="form-control"
@@ -106,7 +134,12 @@
                           :language="ko"
                           format="yyyy/MM/dd"
                         >
-                          <div slot="beforeCalendarHeader" class="calendar-header">시작 날짜</div>
+                          <div
+                            slot="beforeCalendarHeader"
+                            class="calendar-header"
+                          >
+                            시작 날짜
+                          </div>
                         </datepicker>
                         <datepicker
                           class="col"
@@ -116,14 +149,19 @@
                           :language="ko"
                           format="yyyy/MM/dd"
                         >
-                          <div slot="beforeCalendarHeader" class="calendar-header">
+                          <div
+                            slot="beforeCalendarHeader"
+                            class="calendar-header"
+                          >
                             종료 날짜
                           </div></datepicker
                         >
                       </div>
                     </div>
                     <div class="mb-3">
-                      <label for="message-text" class="col-form-label">상세설명:</label>
+                      <label for="message-text" class="col-form-label"
+                        >상세설명:</label
+                      >
                       <textarea
                         class="form-control"
                         id="message-text"
@@ -133,7 +171,11 @@
                   </form>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
                     Close
                   </button>
                   <button
@@ -152,8 +194,15 @@
       </div>
     </section>
     <div style="display: flex; justify-content: center">
-      <div class="mb-auto ms-3 me-3 row" style="flex-wrap: wrap; width: 80%; position: relative">
-        <list-component v-for="(trip, index) in trips" :key="index" :trip="trip"></list-component>
+      <div
+        class="mb-auto ms-3 me-3 row"
+        style="flex-wrap: wrap; width: 80%; position: relative"
+      >
+        <list-component
+          v-for="(trip, index) in trips"
+          :key="index"
+          :trip="trip"
+        ></list-component>
       </div>
     </div>
   </div>
@@ -180,6 +229,7 @@ export default {
       keyword: "",
       map: null,
       positions: [],
+      overlays: [],
       markers: [],
       trips: [],
       startDate: "",
@@ -210,7 +260,9 @@ export default {
     //   "&numOfRows=20&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json";
 
     // fetch(areaUrl, { method: "GET" }).then(function (response) { return response.json() }).then(function (data) { makeOption(data); });
-    axios.get("http://192.168.31.65/map/sido").then(({ data }) => this.makeOption(data));
+    axios
+      .get("http://192.168.31.65/map/sido")
+      .then(({ data }) => this.makeOption(data));
 
     if (window.kakao && window.kakao.maps) {
       this.loadMap();
@@ -274,6 +326,7 @@ export default {
     },
     makeList(data) {
       this.positions = [];
+
       if (data.length == 0) {
         alert("결과가 없습니다.");
         return;
@@ -285,9 +338,11 @@ export default {
       this.trips = trips;
 
       trips.forEach((area) => {
+        console.log(area.homepage);
         let markerInfo = {
           title: area.title,
           latlng: new kakao.maps.LatLng(area.latitude, area.longitude),
+          homepage: area.homepage,
         };
         this.positions.push(markerInfo);
       });
@@ -326,13 +381,30 @@ export default {
       //   const markerImage = new kakao.maps.MarkerImage(imgSrc, imgSize);
 
       this.positions.forEach((position) => {
+        console.log(position.homepage);
         const marker = new kakao.maps.Marker({
           map: this.map, // 마커를 표시할 지도
           position: position.latlng, // 마커를 표시할 위치
           title: position.title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
           //   image: markerImage, // 마커의 이미지
         });
+        const overlay = new kakao.maps.CustomOverlay({
+          map: this.map,
+          position: position.latlng,
+          content:
+            '<div class="customoverlay">' +
+            "  <a href=" +
+            "#" +
+            ">" +
+            '    <span class="title">' +
+            position.title +
+            "</span>" +
+            "  </a>" +
+            "</div>",
+          yAnchor: 0.1,
+        });
         this.markers.push(marker);
+        this.overlays.push(overlay);
       });
       console.log("마커수 ::: " + this.markers.length);
 
@@ -351,9 +423,15 @@ export default {
         this.markers.forEach((item) => {
           console.log(item);
           item.setMap(null);
-          console.log(11, item);
         });
       }
+      if (this.overlays.length > 0) {
+        this.overlays.forEach((item) => {
+          console.log("dddddd", item);
+          item.setMap(null);
+        });
+      }
+      console.log("오버레이 222", this.overlays.length);
       console.log("마커 싹 지우자!!!222", this.markers.length);
     },
     makeOption(data) {
@@ -404,5 +482,54 @@ export default {
   width: 55%;
   height: 500px;
   float: left;
+}
+</style>
+
+
+<style>
+.customoverlay {
+  position: relative;
+  bottom: 85px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  border-bottom: 2px solid #ddd;
+  float: left;
+}
+.customoverlay:nth-of-type(n) {
+  border: 0;
+  box-shadow: 0px 1px 2px #888;
+}
+.customoverlay a {
+  display: block;
+  text-decoration: none;
+  color: #000;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  overflow: hidden;
+  background: #d95050;
+  background: #d95050
+    url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png)
+    no-repeat right 14px center;
+}
+.customoverlay .title {
+  display: block;
+  text-align: center;
+  background: #fff;
+  margin-right: 35px;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.customoverlay:after {
+  content: "";
+  position: absolute;
+  margin-left: -12px;
+  left: 50%;
+  bottom: -12px;
+  width: 22px;
+  height: 12px;
+  background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png");
 }
 </style>
