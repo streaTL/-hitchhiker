@@ -6,9 +6,27 @@ public class PlanDetailDto {
 	int day;
 	int order;
 	String imgSrc;
+	String title;
+	String addr;
 
 	public String getImgSrc() {
 		return imgSrc;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getAddr() {
+		return addr;
+	}
+
+	public void setAddr(String addr) {
+		this.addr = addr;
 	}
 
 	public void setImgSrc(String imgSrc) {
@@ -50,7 +68,7 @@ public class PlanDetailDto {
 	@Override
 	public String toString() {
 		return "PlanDetailDto [planDetailId=" + planDetailId + ", contentId=" + contentId + ", day=" + day + ", order="
-				+ order + ", imgSrc=" + imgSrc + "]";
+				+ order + ", imgSrc=" + imgSrc + ", title=" + title + ", addr=" + addr + "]";
 	}
 
 }

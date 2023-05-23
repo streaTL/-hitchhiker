@@ -20,6 +20,8 @@
 			<result property="day" column="day" />
 			<result property="order" column="order" />
 			<result column="first_image" property="imgSrc" />
+			<result column="title" property="title" />
+			<result column="addr" property="addr" />
 		</collection>
 	</resultMap>
 
@@ -39,7 +41,7 @@
 		p.update_time,
 		p.plan_desc, ai.first_image, pd.plan_detail_id,
 		pd.content_id, pd.day,
-		pd.order
+		pd.order, ai.title, concat(ai.addr1, ai.addr2) as addr
 		from plan p
 		JOIN plan_detail pd ON p.plan_id = pd.plan_id
 		JOIN
