@@ -1,18 +1,9 @@
 <template>
   <div
     class="card ms-2 me-2 mb-2"
-    style="
-      width: 18rem;
-      height: 22rem;
-      object-fit: cover;
-      display: inline-block;
-    "
+    style="width: 18rem; height: 22rem; object-fit: cover; display: inline-block"
   >
-    <img
-      :src="plan.planDetail[0].imgSrc"
-      class="card-img-top mt-2"
-      style="height: 10rem"
-    />
+    <img :src="plan.planDetail[0].imgSrc" class="card-img-top mt-2" style="height: 10rem" />
     <div class="card-body">
       <h5 class="card-title">이름: {{ plan.planName }}</h5>
       <p class="card-text">작성자: {{ plan.userId }}</p>
@@ -70,14 +61,8 @@
               </p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">계획 삭제</button>
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
+              <button type="button" class="btn btn-primary" @click="deletePlan">계획 삭제</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
@@ -88,6 +73,7 @@
 
 <script>
 import PlanDetailComponent from "../common/PlanDetailComponent.vue";
+import http from "@/api/http";
 export default {
   name: "PlanListComponent",
   components: { PlanDetailComponent },
@@ -105,7 +91,11 @@ export default {
     this.modalId = "#" + this.id;
   },
   methods: {
-    deletePlan() {},
+    async deletePlan() {
+      await http.post("/plan/delete/" + this.plan.planId);
+      this.$router.go();
+      alert("삭제되었습니다!");
+    },
   },
 };
 </script>

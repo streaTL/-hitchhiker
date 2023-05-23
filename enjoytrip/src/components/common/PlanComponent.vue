@@ -41,6 +41,7 @@ export default {
     ...mapMutations(["DELETE_PLAN"]),
     deleteplan() {
       this.DELETE_PLAN(this.index);
+      alert("삭제되었습니다!");
     },
   },
 };

@@ -1,22 +1,20 @@
 <template>
-  <div
-    class="card ms-2 me-2 mb-2"
-    style="
-      width: 18rem;
-      height: 22rem;
-      object-fit: cover;
-      display: inline-block;
-    "
-  >
-    <img
-      :src="planDetail.imgSrc"
-      class="card-img-top mt-2"
-      style="height: 10rem"
-    />
-    <div class="card-body">
-      <h5 class="card-title">{{ planDetail.title }}</h5>
-      <p class="card-text">{{ planDetail.addr }}</p>
-      <!-- <a href="" class="btn btn-primary">Go somewhere</a> -->
+  <div class="card ms-4 mb-1" style="width: 100%">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img
+          :src="planDetail.imgSrc"
+          class="img-fluid rounded-start"
+          style="width: 80%; height: 150px; object-fit: cover"
+          alt="..."
+        />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{ planDetail.title }}</h5>
+          <p class="card-text">{{ planDetail.addr }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>

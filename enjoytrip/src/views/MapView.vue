@@ -12,11 +12,7 @@
           <select id="search-area" class="form-select me-2" v-model="serchArea">
             <option value="0" selected>검색 할 지역 선택</option>
           </select>
-          <select
-            id="search-content-id"
-            class="form-select me-2"
-            v-model="searchContentId"
-          >
+          <select id="search-content-id" class="form-select me-2" v-model="searchContentId">
             <option value="0" selected>관광지 유형</option>
             <option value="12">관광지</option>
             <option value="14">문화시설</option>
@@ -36,27 +32,16 @@
             v-model="keyword"
             @keyup.enter="search"
           />
-          <button
-            id="btn-search"
-            class="btn btn-outline-success"
-            type="button"
-            @click="search"
-          >
+          <button id="btn-search" class="btn btn-outline-success" type="button" @click="search">
             검색
           </button>
         </form>
       </div>
     </section>
-    <section
-      class="map-section"
-      id="map2"
-      style="display: flex; justify-content: center"
-    >
+    <section class="map-section" id="map2" style="display: flex; justify-content: center">
       <div id="map" class="mb-5 me-3"></div>
       <div style="display: flex; flex-direction: column">
-        <div
-          style="float: left; height: 445px; width: 450px; overflow-y: scroll"
-        >
+        <div style="float: left; height: 445px; width: 450px; overflow-y: scroll">
           <plan-component
             v-for="(plan, index) in plans"
             :key="index"
@@ -65,12 +50,7 @@
           ></plan-component>
         </div>
         <div class="mt-3">
-          <button
-            type="button"
-            class="btn btn-primary"
-            style="width: 200px"
-            @click="deleteplans"
-          >
+          <button type="button" class="btn btn-primary" style="width: 200px" @click="deleteplans">
             목록삭제
           </button>
           <button
@@ -93,9 +73,7 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">
-                    여행 계획 작성!
-                  </h1>
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">여행 계획 작성!</h1>
                   <button
                     type="button"
                     class="btn-close"
@@ -106,9 +84,7 @@
                 <div class="modal-body">
                   <form>
                     <div class="mb-3">
-                      <label for="recipient-name" class="col-form-label"
-                        >여행이름:</label
-                      >
+                      <label for="recipient-name" class="col-form-label">여행이름:</label>
                       <input
                         type="text"
                         class="form-control"
@@ -130,12 +106,7 @@
                           :language="ko"
                           format="yyyy/MM/dd"
                         >
-                          <div
-                            slot="beforeCalendarHeader"
-                            class="calendar-header"
-                          >
-                            시작 날짜
-                          </div>
+                          <div slot="beforeCalendarHeader" class="calendar-header">시작 날짜</div>
                         </datepicker>
                         <datepicker
                           class="col"
@@ -145,19 +116,14 @@
                           :language="ko"
                           format="yyyy/MM/dd"
                         >
-                          <div
-                            slot="beforeCalendarHeader"
-                            class="calendar-header"
-                          >
+                          <div slot="beforeCalendarHeader" class="calendar-header">
                             종료 날짜
                           </div></datepicker
                         >
                       </div>
                     </div>
                     <div class="mb-3">
-                      <label for="message-text" class="col-form-label"
-                        >상세설명:</label
-                      >
+                      <label for="message-text" class="col-form-label">상세설명:</label>
                       <textarea
                         class="form-control"
                         id="message-text"
@@ -167,16 +133,13 @@
                   </form>
                 </div>
                 <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Close
                   </button>
                   <button
                     type="button"
                     class="btn btn-primary"
+                    data-bs-dismiss="modal"
                     @click="writePlan"
                   >
                     작성
@@ -189,15 +152,8 @@
       </div>
     </section>
     <div style="display: flex; justify-content: center">
-      <div
-        class="mb-auto ms-3 me-3 row"
-        style="flex-wrap: wrap; width: 80%; position: relative"
-      >
-        <list-component
-          v-for="(trip, index) in trips"
-          :key="index"
-          :trip="trip"
-        ></list-component>
+      <div class="mb-auto ms-3 me-3 row" style="flex-wrap: wrap; width: 80%; position: relative">
+        <list-component v-for="(trip, index) in trips" :key="index" :trip="trip"></list-component>
       </div>
     </div>
   </div>
@@ -253,9 +209,7 @@ export default {
     //   "&numOfRows=20&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json";
 
     // fetch(areaUrl, { method: "GET" }).then(function (response) { return response.json() }).then(function (data) { makeOption(data); });
-    axios
-      .get("http://192.168.31.65/map/sido")
-      .then(({ data }) => this.makeOption(data));
+    axios.get("http://192.168.31.65/map/sido").then(({ data }) => this.makeOption(data));
 
     if (window.kakao && window.kakao.maps) {
       this.loadMap();
@@ -436,6 +390,7 @@ export default {
         planDesc: this.planDesc,
         planDetail: this.plans,
       });
+      alert("등록되었습니다!");
     },
   },
 };
