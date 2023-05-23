@@ -1,5 +1,5 @@
 <template>
-  <div class="card mb-3" style="width: 450px">
+  <div class="card mb-3" style="width: 430px">
     <div class="row g-0">
       <div class="col">
         <img
@@ -12,7 +12,7 @@
       <div class="col-md-8">
         <div class="card-body">
           <h5 class="card-title">{{ plan.title }}</h5>
-          <p class="card-text">{{ plan.addr1 }}</p>
+          <p class="card-text">{{ plan.addr1 }} {{ plan.addr2 }}</p>
           <p class="card-text">
             <button type="button" class="btn btn-primary" @click="deleteplan">여행지 삭제</button>
           </p>

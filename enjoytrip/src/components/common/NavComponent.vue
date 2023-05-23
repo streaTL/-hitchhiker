@@ -1,11 +1,14 @@
 <template>
   <div>
-    <nav
-      class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top"
-      id="mainNav"
-    >
+    <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
       <div class="container">
-        <router-link class="navbar-brand" to="/">Go! Trip!</router-link>
+        <router-link class="navbar-brand" to="/"
+          ><img
+            :src="logoImgSrc"
+            class="me-3"
+            style="width: 72px; height: 72px"
+          />HITCHHIKER!</router-link
+        >
         <!-- <a class="navbar-brand" href="${root}/">Go! Trip!</a> -->
         <button
           class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded"
@@ -94,14 +97,8 @@
                 >Login</router-link
               >
             </li>
-            <li
-              v-if="userInfo != ``"
-              class="nav-item mx-0 mx-lg-1"
-              id="myPageBtn"
-            >
-              <router-link
-                class="nav-link btn-secondary py-3 px-0 px-lg-3 rounded"
-                to="/myPage"
+            <li v-if="userInfo != ``" class="nav-item mx-0 mx-lg-1" id="myPageBtn">
+              <router-link class="nav-link btn-secondary py-3 px-0 px-lg-3 rounded" to="/myPage"
                 >My Page</router-link
               >
             </li>
@@ -129,7 +126,7 @@ export default {
   name: "NavComponentt",
   components: {},
   data() {
-    return {};
+    return { logoImgSrc: require("@/assets/img/HitchhikerLogo.png") };
   },
   computed: {
     ...mapState(["isLogin", "userInfo"]),

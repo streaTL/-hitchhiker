@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="page-section map-section mt-5" id="map1">
+    <section class="page-section map-section" style="margin-top: 120px" id="map1">
       <div class="row">
         <!-- 관광지 검색 start -->
         <form
@@ -203,6 +203,7 @@ export default {
   },
   created() {},
   mounted() {
+    this.DELETE_PLANS();
     // let areaUrl =
     //   "https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=" +
     //   "rr9isP1Ir1kiNMbiyyfIl60qNH9dBAdVX78tq8pYoRYcR2cvdl2a3r815EPgPMopJM%2FAD%2BrdnBCkhxfGc39YFg%3D%3D" +
@@ -370,7 +371,9 @@ export default {
     },
     ...mapMutations(["DELETE_PLANS"]),
     deleteplans() {
-      this.DELETE_PLANS();
+      if (confirm("모든 목록을 삭제할까요?")) {
+        this.DELETE_PLANS();
+      }
     },
     writePlan() {
       console.log({

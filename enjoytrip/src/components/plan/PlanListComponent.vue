@@ -9,6 +9,13 @@
       <p class="card-text">작성자: {{ plan.userId }}</p>
       <!-- <a href="" class="btn btn-primary">Go somewhere</a> -->
       <button
+        style="position: absolute; bottom: 13px; left: 15px; border: none; background-color: white"
+        @click="like"
+      >
+        <i class="fa-regular fa-heart"></i>
+        {{ likeCnt }}
+      </button>
+      <button
         class="btn btn-primary"
         type="button"
         data-bs-toggle="modal"
@@ -81,6 +88,7 @@ export default {
     return {
       modalId: "",
       Id: "",
+      likeCnt: "",
     };
   },
   props: {
@@ -89,12 +97,17 @@ export default {
   created() {
     this.id = "id" + this.plan.planId;
     this.modalId = "#" + this.id;
+    this.likeCnt = this.plan.likeCnt;
   },
   methods: {
     async deletePlan() {
       await http.post("/plan/delete/" + this.plan.planId);
       this.$router.go();
       alert("삭제되었습니다!");
+    },
+    like() {
+      http.post("/plan/like/" + this.plan.planId);
+      this.likeCnt = this.likeCnt + 1;
     },
   },
 };
