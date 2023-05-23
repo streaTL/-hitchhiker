@@ -229,7 +229,6 @@ export default {
       keyword: "",
       map: null,
       positions: [],
-      overlays: [],
       markers: [],
       trips: [],
       startDate: "",
@@ -388,23 +387,27 @@ export default {
           title: position.title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
           //   image: markerImage, // 마커의 이미지
         });
-        const overlay = new kakao.maps.CustomOverlay({
-          map: this.map,
-          position: position.latlng,
-          content:
-            '<div class="customoverlay">' +
-            "  <a href=" +
-            "#" +
-            ">" +
-            '    <span class="title">' +
-            position.title +
-            "</span>" +
-            "  </a>" +
-            "</div>",
-          yAnchor: 0.1,
+
+        // 마커에 표시할 인포윈도우를 생성합니다
+        var infowindow = new kakao.maps.InfoWindow({
+          content: '<span class="info-title">' + position.title + "</span>", // 인포윈도우에 표시할 내용
         });
+
+        // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+        // 이벤트 리스너로는 클로저를 만들어 등록합니다
+        // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+        kakao.maps.event.addListener(
+          marker,
+          "mouseover",
+          this.makeOverListener(this.map, marker, infowindow)
+        );
+        kakao.maps.event.addListener(
+          marker,
+          "mouseout",
+          this.makeOutListener(infowindow)
+        );
+
         this.markers.push(marker);
-        this.overlays.push(overlay);
       });
       console.log("마커수 ::: " + this.markers.length);
 
@@ -417,6 +420,19 @@ export default {
 
       this.map.setBounds(bounds);
     },
+    makeOverListener(map, marker, infowindow) {
+      return function () {
+        infowindow.open(map, marker);
+      };
+    },
+
+    // 인포윈도우를 닫는 클로저를 만드는 함수입니다
+    makeOutListener(infowindow) {
+      return function () {
+        infowindow.close();
+      };
+    },
+
     deleteMarker() {
       console.log("마커 싹 지우자!!!", this.markers.length);
       if (this.markers.length > 0) {
@@ -425,13 +441,6 @@ export default {
           item.setMap(null);
         });
       }
-      if (this.overlays.length > 0) {
-        this.overlays.forEach((item) => {
-          console.log("dddddd", item);
-          item.setMap(null);
-        });
-      }
-      console.log("오버레이 222", this.overlays.length);
       console.log("마커 싹 지우자!!!222", this.markers.length);
     },
     makeOption(data) {
@@ -485,51 +494,15 @@ export default {
 }
 </style>
 
-
 <style>
-.customoverlay {
-  position: relative;
-  bottom: 85px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  border-bottom: 2px solid #ddd;
-  float: left;
-}
-.customoverlay:nth-of-type(n) {
-  border: 0;
-  box-shadow: 0px 1px 2px #888;
-}
-.customoverlay a {
-  display: block;
-  text-decoration: none;
-  color: #000;
-  text-align: center;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: bold;
-  overflow: hidden;
-  background: #d95050;
-  background: #d95050
-    url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png)
-    no-repeat right 14px center;
-}
-.customoverlay .title {
+.info-title {
   display: block;
   text-align: center;
-  background: #fff;
-  margin-right: 35px;
-  padding: 10px 15px;
-  font-size: 14px;
-  font-weight: bold;
-}
-.customoverlay:after {
-  content: "";
-  position: absolute;
-  margin-left: -12px;
-  left: 50%;
-  bottom: -12px;
-  width: 22px;
-  height: 12px;
-  background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png");
+  height: 24px;
+  line-height: 22px;
+  border-radius: 4px;
+  padding: 0px 10px;
+  max-width: 100%;
+  font-size: 12px;
 }
 </style>
