@@ -5,6 +5,15 @@ public class PlanDetailDto {
 	int contentId;
 	int day;
 	int order;
+	String imgSrc;
+
+	public String getImgSrc() {
+		return imgSrc;
+	}
+
+	public void setImgSrc(String imgSrc) {
+		this.imgSrc = imgSrc;
+	}
 
 	public int getPlanDetailId() {
 		return planDetailId;
@@ -41,7 +50,7 @@ public class PlanDetailDto {
 	@Override
 	public String toString() {
 		return "PlanDetailDto [planDetailId=" + planDetailId + ", contentId=" + contentId + ", day=" + day + ", order="
-				+ order + "]";
+				+ order + ", imgSrc=" + imgSrc + "]";
 	}
 
 }

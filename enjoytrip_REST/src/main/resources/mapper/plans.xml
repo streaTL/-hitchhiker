@@ -9,7 +9,7 @@
 		<result column="plan_id" property="planId" />
 		<result column="user_id" property="userId" />
 		<result column="plan_name" property="planName" />
-		<result column="start_data" property="startDate" />
+		<result column="start_date" property="startDate" />
 		<result column="end_date" property="endDate" />
 		<result column="create_time" property="createDate" />
 		<result column="update_time" property="updateDate" />
@@ -19,6 +19,7 @@
 			<result property="contentId" column="content_id" />
 			<result property="day" column="day" />
 			<result property="order" column="order" />
+			<result column="first_image" property="imgSrc" />
 		</collection>
 	</resultMap>
 
@@ -29,9 +30,20 @@
 	</resultMap>
 
 
+	<!-- <select id="getPlans" resultMap="plan"> select * from plan p join plan_detail 
+		pd on p.plan_id = pd.plan_id </select> -->
+
 	<select id="getPlans" resultMap="plan">
-		select * from plan p join
-		plan_detail pd on p.plan_id = pd.plan_id
+		select p.plan_id, p.user_id,
+		p.plan_name, p.start_date, p.end_date, p.create_time,
+		p.update_time,
+		p.plan_desc, ai.first_image, pd.plan_detail_id,
+		pd.content_id, pd.day,
+		pd.order
+		from plan p
+		JOIN plan_detail pd ON p.plan_id = pd.plan_id
+		JOIN
+		attraction_info ai ON pd.content_id = ai.content_id;
 	</select>
 
 	<select id="getPlanDetail" parameterType="int"
