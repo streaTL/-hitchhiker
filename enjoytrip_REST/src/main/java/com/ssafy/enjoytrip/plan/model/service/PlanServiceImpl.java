@@ -33,4 +33,14 @@ public class PlanServiceImpl implements PlanService{
 		planMapper.writePlanDetail(planDto);
 	}
 
+	@Override
+	public void deletePlan(int planId) {
+		planMapper.deletePlan(planId);
+	}
+
+	@Override
+	public void likePlan(int planId) {
+		planMapper.likePlan(planId);
+	}
+
 }

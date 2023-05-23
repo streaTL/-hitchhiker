@@ -14,6 +14,7 @@
 		<result column="create_time" property="createDate" />
 		<result column="update_time" property="updateDate" />
 		<result column="plan_desc" property="planDesc" />
+		<result column="like_cnt" property="likeCnt" />
 		<collection property="planDetail" ofType="PlanDetailDto">
 			<id property="planDetailId" column="plan_detail_id" />
 			<result property="contentId" column="content_id" />
@@ -36,7 +37,7 @@
 		pd on p.plan_id = pd.plan_id </select> -->
 
 	<select id="getPlans" resultMap="plan">
-		select p.plan_id, p.user_id,
+		select p.plan_id, p.user_id, p.like_cnt,
 		p.plan_name, p.start_date, p.end_date, p.create_time,
 		p.update_time,
 		p.plan_desc, ai.first_image, pd.plan_detail_id,
@@ -69,5 +70,13 @@
 			(#{planId}, #{item.day}, #{item.contentId}, #{item.order})
 		</foreach>
 	</insert>
+	
+	<delete id="deletePlan" parameterType="int">
+		delete from plan where plan_id = #{planId};
+	</delete>
+	
+	<update id="likePlan" parameterType="int">
+		update plan set like_cnt = like_cnt+1 where plan_id = #{planId};
+	</update>
 
 </mapper>

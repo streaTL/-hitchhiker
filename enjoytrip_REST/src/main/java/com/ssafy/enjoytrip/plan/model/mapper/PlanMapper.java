@@ -14,5 +14,7 @@ public interface PlanMapper {
 	List<PlanDetailDto> getPlanDetail(int planId);
 	void writePlan(PlanDto planDto);
 	void writePlanDetail(PlanDto planDto);
+	void deletePlan(int planId);
+	void likePlan(int planId);
 
 }

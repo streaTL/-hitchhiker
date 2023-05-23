@@ -71,7 +71,7 @@ export default {
   },
   created() {
     let accessToken = sessionStorage.getItem("access-token");
-    const url = "http://localhost/board/" + this.articleNo;
+    const url = "http://192.168.31.65/board/" + this.articleNo;
     axios
       .get(url, { headers: { "auth-token": accessToken } })
       .then((data) => (this.board = data.data));
@@ -83,10 +83,10 @@ export default {
       console.log(this.able);
       this.able = !this.able;
     },
-    modifyBoard() {
+    async modifyBoard() {
       let accessToken = sessionStorage.getItem("access-token");
-      const url = "http://localhost/board/modify/" + this.articleNo;
-      axios
+      const url = "http://192.168.31.65/board/modify/" + this.articleNo;
+      await axios
         .post(url, {
           subject: this.board.subject,
           content: this.board.content,
@@ -107,10 +107,10 @@ export default {
         params: { type: this.type, msg: msg },
       });
     },
-    deleteBoard() {
+    async deleteBoard() {
       let accessToken = sessionStorage.getItem("access-token");
-      const url = "http://localhost/board/delete/" + this.articleNo;
-      axios
+      const url = "http://192.168.31.65/board/delete/" + this.articleNo;
+      await axios
         .get(url, { headers: { "auth-token": accessToken } })
         .then((data) => console.log(data));
 

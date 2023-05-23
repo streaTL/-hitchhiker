@@ -10,5 +10,7 @@ public interface PlanService {
 	List<PlanDetailDto> getPlans();
 	List<PlanDetailDto> getPlanDetail(int planId);
 	void writePlan(PlanDto planDto);
+	void deletePlan(int planId);
+	void likePlan(int planId);
 
 }

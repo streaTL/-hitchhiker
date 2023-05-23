@@ -40,6 +40,22 @@ public class PlanController {
 		
 		planService.writePlan(planDto);
 		
-		return new ResponseEntity<>(planDto,HttpStatus.OK);
+		return new ResponseEntity<>(planDto, HttpStatus.OK);
+	}
+	
+	@PostMapping("/delete/{planId}")
+	public ResponseEntity<?> deletePlan(@PathVariable int planId){
+		System.out.println(planId);
+		
+		planService.deletePlan(planId);
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@PostMapping("/like/{planId}")
+	public ResponseEntity<?> likePlan(@PathVariable int planId){
+		System.out.println(planId);
+		planService.likePlan(planId);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

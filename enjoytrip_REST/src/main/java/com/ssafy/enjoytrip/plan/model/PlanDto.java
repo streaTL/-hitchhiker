@@ -11,6 +11,16 @@ public class PlanDto {
 	String createDate;
 	String updateDate;
 	String planDesc;
+	int likeCnt;
+
+	public int getLikeCnt() {
+		return likeCnt;
+	}
+
+	public void setLikeCnt(int likeCnt) {
+		this.likeCnt = likeCnt;
+	}
+
 	List<PlanDetailDto> planDetail;
 
 	public List<PlanDetailDto> getPlanDetail() {
@@ -89,7 +99,7 @@ public class PlanDto {
 	public String toString() {
 		return "PlanDto [planId=" + planId + ", userId=" + userId + ", planName=" + planName + ", startDate="
 				+ startDate + ", endDate=" + endDate + ", createDate=" + createDate + ", updateDate=" + updateDate
-				+ ", planDesc=" + planDesc + ", planDetail=" + planDetail + "]";
+				+ ", planDesc=" + planDesc + ", likeCnt=" + likeCnt + ", planDetail=" + planDetail + "]";
 	}
 
 }
