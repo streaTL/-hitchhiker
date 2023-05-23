@@ -1,43 +1,60 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
-<mapper namespace="com.ssafy.enjoytrip.map.model.mapper.MapMapper">
+
+<mapper
+	namespace="com.ssafy.enjoytrip.map.model.mapper.MapMapper">
 
 	<resultMap type="attractionInfoDto" id="attr">
-		<result column="content_id" property="contentId"/>
-		<result column="content_type_id" property="contentTypeId"/>
-		<result column="title" property="title"/>
-		<result column="addr1" property="addr1"/>
-		<result column="addr2" property="addr2"/>
-		<result column="tel" property="tel"/>
-		<result column="first_image" property="firstImage"/>
-		<result column="first_image2" property="firstImage2"/>
-		<result column="readcount" property="readCount"/>
-		<result column="sido_code" property="sidoCode"/>
-		<result column="gugun_code" property="gugunCode"/>
-		<result column="latitude" property="latitude"/>
-		<result column="longitude" property="longitude"/>
-		<result column="mlevel" property="mlevel"/>
+		<result column="content_id" property="contentId" />
+		<result column="content_type_id" property="contentTypeId" />
+		<result column="title" property="title" />
+		<result column="addr1" property="addr1" />
+		<result column="addr2" property="addr2" />
+		<result column="tel" property="tel" />
+		<result column="first_image" property="firstImage" />
+		<result column="first_image2" property="firstImage2" />
+		<result column="readcount" property="readCount" />
+		<result column="sido_code" property="sidoCode" />
+		<result column="gugun_code" property="gugunCode" />
+		<result column="latitude" property="latitude" />
+		<result column="longitude" property="longitude" />
+		<result column="mlevel" property="mlevel" />
 	</resultMap>
-	
-	<resultMap type="attractionInfoDto" id="attrDesc" extends="attr">
-		<result column="overview" property="overview"/>
+
+	<resultMap type="attractionInfoDto" id="attrDesc"
+		extends="attr">
+		<result column="overview" property="overview" />
 	</resultMap>
-	
+
 	<resultMap type="sidoDto" id="sido">
-		<result column="sido_code" property="sidoCode"/>
-		<result column="sido_name" property="sidoName"/>
+		<result column="sido_code" property="sidoCode" />
+		<result column="sido_name" property="sidoName" />
 	</resultMap>
-	
+
 	<select id="sido" resultMap="sido">
 		select * from sido
 	</select>
-	
-	<select id="attrInfo" parameterType="String" resultMap="attrDesc">
-		select ai.content_id, content_type_id, title, addr1, addr2, zipcode, tel, first_image, first_image2, readcount, sido_code, gugun_code, latitude, longitude, mlevel, ad.homepage, ad.overview 
-		from attraction_description ad left join attraction_info ai on ai.content_id = ad.content_id
-		where sido_code = #{areaCode} and content_type_id = #{contentTypeId}
+
+	<select id="getChart" resultType="java.util.HashMap">
+    <![CDATA[
+        SELECT sido_name, AVG(readcount) AS avg
+        FROM attraction_info ai join sido s on ai.sido_code = s.sido_code
+        WHERE content_type_id = 12
+        GROUP BY sido_name
+        ORDER BY avg DESC;
+    ]]>
+	</select>
+
+	<select id="attrInfo" parameterType="String"
+		resultMap="attrDesc">
+		select ai.content_id, content_type_id, title, addr1, addr2, zipcode,
+		tel, first_image, first_image2, readcount, sido_code, gugun_code,
+		latitude, longitude, mlevel, ad.homepage, ad.overview
+		from attraction_description ad left join attraction_info ai on
+		ai.content_id = ad.content_id
+		where sido_code = #{areaCode} and
+		content_type_id = #{contentTypeId}
 		<if test="keyword != ''">
 			and title like CONCAT('%', #{keyword}, '%')
 		</if>
@@ -47,22 +64,28 @@
 	</select>
 
 	<select id="randAttrInfo" resultMap="attrDesc">
-		select ai.content_id, content_type_id, title, addr1, addr2, zipcode, tel, first_image, first_image2, readcount, sido_code, gugun_code, latitude, longitude, mlevel, ad.homepage, ad.overview
-		from attraction_description ad left join attraction_info ai on ai.content_id = ad.content_id
-		where first_image != ""
+		select ai.content_id,
+		content_type_id, title, addr1, addr2, zipcode, tel, first_image,
+		first_image2, readcount, sido_code, gugun_code, latitude, longitude,
+		mlevel, ad.homepage, ad.overview
+		from attraction_description ad left
+		join attraction_info ai on ai.content_id = ad.content_id
+		where
+		first_image != ""
 		order by rand()
 		limit 6;
 	</select>
 
-	<!-- <select id="attrInfo" parameterType="String" resultMap="attr">
-		select * from attraction_info
-		where sido_code = #{areaCode} and content_type_id = #{contentTypeId} and title like CONCAT('%', #{keyword}, '%')
-	</select> -->
-	
-	<select id="attrDetailInfo" parameterType="String" resultMap="attrDesc">
+	<!-- <select id="attrInfo" parameterType="String" resultMap="attr"> select 
+		* from attraction_info where sido_code = #{areaCode} and content_type_id 
+		= #{contentTypeId} and title like CONCAT('%', #{keyword}, '%') </select> -->
+
+	<select id="attrDetailInfo" parameterType="String"
+		resultMap="attrDesc">
 		select overview from attraction_description
-		where content_id = #{contentId}
+		where content_id
+		= #{contentId}
 	</select>
-	
+
 
 </mapper>

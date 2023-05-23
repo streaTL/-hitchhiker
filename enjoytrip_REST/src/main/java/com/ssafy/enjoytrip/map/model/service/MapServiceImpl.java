@@ -1,6 +1,7 @@
 package com.ssafy.enjoytrip.map.model.service;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,12 @@ public class MapServiceImpl implements MapService {
 	@Override
 	public List<attractionInfoDto> randAttrInfo() {
 		return mapMapper.randAttrInfo();
+	}
+
+	@Override
+	public List<HashMap<String, String>>  getChart() {
+		List<HashMap<String, String>>  data = mapMapper.getChart();
+		return data;
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.ssafy.enjoytrip.map.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.ssafy.enjoytrip.map.model.SidoDto;
@@ -11,5 +12,6 @@ public interface MapService {
 	List<attractionInfoDto> attrDetailInfo(String contentId);
 
 	List<attractionInfoDto> randAttrInfo();
+	List<HashMap<String, String>>  getChart();
 
 }

@@ -1,5 +1,6 @@
 package com.ssafy.enjoytrip.map.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,11 @@ public class MapController {
 	public ResponseEntity<?>  attrDesc(@PathVariable String contentId) throws Exception {
 		List<attractionInfoDto> attrDesc = mapService.attrDetailInfo(contentId);
 		return new ResponseEntity<>(attrDesc, HttpStatus.OK);
+	}
+	
+	@GetMapping("/chart")
+	public ResponseEntity<?> getChart() throws Exception {
+		List<HashMap<String, String>>  data = mapService.getChart();
+		return new ResponseEntity<>(data, HttpStatus.OK);
 	}
 }
