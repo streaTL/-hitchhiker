@@ -1,9 +1,25 @@
 <template>
   <div
     class="card ms-2 me-2 mb-2"
-    style="width: 18rem; height: 22rem; object-fit: cover; display: inline-block"
+    style="
+      width: 18rem;
+      height: 22rem;
+      object-fit: cover;
+      display: inline-block;
+    "
   >
-    <img :src="trip.firstImage" class="card-img-top mt-2" style="height: 10rem" />
+    <img
+      v-if="trip.firstImage != ``"
+      :src="trip.firstImage"
+      class="card-img-top mt-2"
+      style="height: 10rem"
+    />
+    <img
+      v-if="trip.firstImage == ``"
+      :src="img"
+      class="card-img-top mt-2"
+      style="height: 10rem"
+    />
     <div class="card-body">
       <h5 class="card-title">{{ trip.title }}</h5>
       <p class="card-text">{{ trip.addr1 }}</p>
@@ -37,7 +53,10 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body" style="display: flex; justify-content: center">
+            <div
+              class="modal-body"
+              style="display: flex; justify-content: center"
+            >
               <img class="img-fluid" :src="trip.firstImage" />
             </div>
 
@@ -54,8 +73,16 @@
               </p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" @click="attrAdd">여행지 추가</button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary" @click="attrAdd">
+                여행지 추가
+              </button>
             </div>
           </div>
         </div>
@@ -74,6 +101,7 @@ export default {
     return {
       id: "",
       modalId: "",
+      img: "",
     };
   },
   props: {
@@ -82,6 +110,7 @@ export default {
   created() {
     this.id = "id" + this.trip.contentId;
     this.modalId = "#" + this.id;
+    this.img = require("@/assets/img/portfolio/pt5.jpg");
   },
   computed: {
     ...mapState(["plans"]),
@@ -98,7 +127,6 @@ export default {
         this.plans.forEach((element) => {
           if (element.title == this.trip.title) {
             console.log(this.trip.title);
-
             console.log(element.title);
             temp = false;
           }
