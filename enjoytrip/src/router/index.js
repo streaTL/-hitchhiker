@@ -69,6 +69,12 @@ const routes = [
     component: () => import("@/views/PlanListView"),
     props: true,
   },
+  {
+    path: "/chart",
+    name: "ChartView",
+    component: () => import("@/views/ChartView"),
+    props: true,
+  },
 ];
 
 const router = new VueRouter({

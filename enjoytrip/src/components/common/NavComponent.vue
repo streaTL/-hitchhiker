@@ -1,6 +1,9 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+    <nav
+      class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top"
+      id="mainNav"
+    >
       <div class="container">
         <router-link class="navbar-brand" to="/"
           ><img
@@ -23,6 +26,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ms-auto">
+            <li class="nav-item mx-0 mx-lg-1">
+              <router-link
+                class="btn-secondary nav-link py-3 px-0 px-lg-3 rounded"
+                to="/chart"
+                style="font-weight: bold"
+                >Chart</router-link
+              >
+            </li>
             <li class="nav-item mx-0 mx-lg-1">
               <router-link
                 class="btn-secondary nav-link py-3 px-0 px-lg-3 rounded"
@@ -97,8 +108,14 @@
                 >Login</router-link
               >
             </li>
-            <li v-if="userInfo != ``" class="nav-item mx-0 mx-lg-1" id="myPageBtn">
-              <router-link class="nav-link btn-secondary py-3 px-0 px-lg-3 rounded" to="/myPage"
+            <li
+              v-if="userInfo != ``"
+              class="nav-item mx-0 mx-lg-1"
+              id="myPageBtn"
+            >
+              <router-link
+                class="nav-link btn-secondary py-3 px-0 px-lg-3 rounded"
+                to="/myPage"
                 >My Page</router-link
               >
             </li>
