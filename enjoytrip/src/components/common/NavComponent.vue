@@ -70,6 +70,14 @@
                       }"
                       >Free Board</router-link
                     >
+                    <router-link
+                      style="font-weight: bold"
+                      class="dropdown-item"
+                      :to="{
+                        name: `PlanListView`,
+                      }"
+                      >Plan List</router-link
+                    >
                     <!-- <a class="dropdown-item" href="${root}/board/freeList"
                       >Free Board</a
                     > -->

@@ -46,7 +46,7 @@ export default {
     };
   },
   created() {
-    axios.get("http://localhost/map/ramAttrInfo").then(({ data }) => {
+    axios.get("http://192.168.31.65/map/ramAttrInfo").then(({ data }) => {
       this.trips = data;
       console.log(this.trips);
     });

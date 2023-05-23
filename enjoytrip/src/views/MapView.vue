@@ -254,7 +254,7 @@ export default {
 
     // fetch(areaUrl, { method: "GET" }).then(function (response) { return response.json() }).then(function (data) { makeOption(data); });
     axios
-      .get("http://localhost:80/map/sido")
+      .get("http://192.168.31.65/map/sido")
       .then(({ data }) => this.makeOption(data));
 
     if (window.kakao && window.kakao.maps) {
@@ -265,7 +265,7 @@ export default {
   },
   methods: {
     search() {
-      let searchUrl = "http://localhost:80/map/attrInfo";
+      let searchUrl = "http://192.168.31.65/map/attrInfo";
       // `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?serviceKey=` +
       // "rr9isP1Ir1kiNMbiyyfIl60qNH9dBAdVX78tq8pYoRYcR2cvdl2a3r815EPgPMopJM%2FAD%2BrdnBCkhxfGc39YFg%3D%3D" +
       // `&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A`;

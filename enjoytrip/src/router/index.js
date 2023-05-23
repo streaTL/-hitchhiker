@@ -63,6 +63,12 @@ const routes = [
     component: () => import("@/views/MyPageView"),
     props: true,
   },
+  {
+    path: "/plan",
+    name: "PlanListView",
+    component: () => import("@/views/PlanListView"),
+    props: true,
+  },
 ];
 
 const router = new VueRouter({
