@@ -85,7 +85,12 @@
                   <form>
                     <div class="mb-3">
                       <label for="recipient-name" class="col-form-label">여행이름:</label>
-                      <input type="text" class="form-control" id="recipient-name" />
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="recipient-name"
+                        v-model="planName"
+                      />
                     </div>
                     <div>
                       <div class="row" style="display: flex">
@@ -99,6 +104,7 @@
                           style="float: left"
                           v-model="startDate"
                           :language="ko"
+                          format="yyyy/MM/dd"
                         >
                           <div slot="beforeCalendarHeader" class="calendar-header">시작 날짜</div>
                         </datepicker>
@@ -108,6 +114,7 @@
                           style="float: right"
                           v-model="endDate"
                           :language="ko"
+                          format="yyyy/MM/dd"
                         >
                           <div slot="beforeCalendarHeader" class="calendar-header">
                             종료 날짜
@@ -117,7 +124,11 @@
                     </div>
                     <div class="mb-3">
                       <label for="message-text" class="col-form-label">상세설명:</label>
-                      <textarea class="form-control" id="message-text"></textarea>
+                      <textarea
+                        class="form-control"
+                        id="message-text"
+                        v-model="planDesc"
+                      ></textarea>
                     </div>
                   </form>
                 </div>
@@ -125,7 +136,7 @@
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Close
                   </button>
-                  <button type="button" class="btn btn-primary">작성</button>
+                  <button type="button" class="btn btn-primary" @click="writePlan">작성</button>
                 </div>
               </div>
             </div>
@@ -149,6 +160,8 @@ import { mapState } from "vuex";
 import { mapMutations } from "vuex";
 import Datepicker from "vuejs-datepicker";
 import { ko } from "vuejs-datepicker/dist/locale";
+import http from "@/api/http";
+import moment from "moment";
 
 export default {
   name: "MapView",
@@ -165,10 +178,21 @@ export default {
       startDate: "",
       endDate: "",
       ko: ko,
+      planName: "",
+      customFormat: "yyyy-MM-dd",
+      planDesc: "",
     };
   },
   computed: {
     ...mapState(["plans"]),
+  },
+  watch: {
+    startDate(newVal) {
+      this.startDate = moment(newVal).format("YYYY/MM/DD");
+    },
+    endDate(newVal) {
+      this.endDate = moment(newVal).format("YYYY/MM/DD");
+    },
   },
   created() {},
   mounted() {
@@ -341,7 +365,26 @@ export default {
     deleteplans() {
       this.DELETE_PLANS();
     },
-    sendPlan() {},
+    ...mapState(["userInfo"]),
+    writePlan() {
+      console.log({
+        planName: this.planName,
+        startDate: this.startDate,
+        endDate: this.endDate,
+        userId: this.userInfo,
+        planDesc: this.planDesc,
+        planDetail: JSON.stringify(this.plans),
+      });
+
+      http.post("/plan/write", {
+        planName: this.planName,
+        startDate: this.startDate,
+        endDate: this.endDate,
+        userId: this.userInfo,
+        planDesc: this.planDesc,
+        planDetail: JSON.stringify(this.plans),
+      });
+    },
   },
 };
 </script>
