@@ -24,6 +24,7 @@
               id="userId"
               v-model="user.userId"
               style="width: 200px"
+              @keyup.enter="doLogin"
             />
           </div>
           <div class="d-flex mb-4 justify-content-md-between">
@@ -40,6 +41,7 @@
               autocomplete="off"
               v-model="user.userPw"
               style="width: 200px"
+              @keyup.enter="doLogin"
             />
           </div>
           <input
