@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ssafy.enjoytrip.board.model.BoardDto;
+import com.ssafy.enjoytrip.board.model.CommentDto;
 
 @Mapper
 public interface BoardMapper {
@@ -31,6 +32,10 @@ public interface BoardMapper {
 
 	List<BoardDto> search(String keyword, String type) throws SQLException;
 
-	void increaseHit(int articleNo);;
+	void increaseHit(int articleNo);
+
+	List<CommentDto> getComments(int articleNo);
+
+	void writeComment(CommentDto commentDto);
 
 }

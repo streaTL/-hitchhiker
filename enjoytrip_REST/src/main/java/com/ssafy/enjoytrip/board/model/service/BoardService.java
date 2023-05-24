@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.ssafy.enjoytrip.board.model.BoardDto;
+import com.ssafy.enjoytrip.board.model.CommentDto;
 
 public interface BoardService {
 
@@ -30,5 +31,9 @@ public interface BoardService {
 	List<BoardDto> search(String keyword, String type) throws SQLException;
 
 	void increaseHit(int articleNo);
+
+	List<CommentDto> getComments(int articleNo);
+
+	void writeComment(CommentDto commentDto);
 	
 }

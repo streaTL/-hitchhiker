@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.enjoytrip.board.model.BoardDto;
+import com.ssafy.enjoytrip.board.model.CommentDto;
 import com.ssafy.enjoytrip.board.model.dao.BoardDao;
 import com.ssafy.enjoytrip.board.model.dao.BoardDaoImpl;
 import com.ssafy.enjoytrip.board.model.mapper.BoardMapper;
@@ -85,5 +86,15 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void increaseHit(int articleNo) {
 		boardMapper.increaseHit(articleNo);	
+	}
+
+	@Override
+	public List<CommentDto> getComments(int articleNo) {
+		return boardMapper.getComments(articleNo);
+	}
+
+	@Override
+	public void writeComment(CommentDto commentDto) {
+		boardMapper.writeComment(commentDto);
 	}
 }

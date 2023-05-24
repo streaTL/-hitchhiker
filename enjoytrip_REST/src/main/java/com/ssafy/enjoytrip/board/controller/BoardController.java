@@ -1,7 +1,5 @@
 package com.ssafy.enjoytrip.board.controller;
 
-import java.sql.SQLException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.enjoytrip.board.model.BoardDto;
+import com.ssafy.enjoytrip.board.model.CommentDto;
 import com.ssafy.enjoytrip.board.model.service.BoardService;
 
 @RestController
@@ -76,5 +75,15 @@ public class BoardController{
 	public ResponseEntity<?> search(@PathVariable String keyword, @RequestHeader String type) throws Exception{
 		return new ResponseEntity<>(boardService.search(keyword, type), HttpStatus.OK);
 	}
-
+	
+	@GetMapping("/comment/{articleNo}")
+	public ResponseEntity<?> getComments(@PathVariable int articleNo){
+		return new ResponseEntity<>(boardService.getComments(articleNo), HttpStatus.OK);
+	}
+	
+	@PostMapping("/comment/write")
+	public ResponseEntity<?> writeComment(@RequestBody CommentDto commentDto){
+		boardService.writeComment(commentDto);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 }
