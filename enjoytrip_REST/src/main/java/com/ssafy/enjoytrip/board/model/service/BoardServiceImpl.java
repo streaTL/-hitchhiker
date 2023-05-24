@@ -97,4 +97,9 @@ public class BoardServiceImpl implements BoardService{
 	public void writeComment(CommentDto commentDto) {
 		boardMapper.writeComment(commentDto);
 	}
+
+	@Override
+	public void deleteComment(int commentId) {
+		boardMapper.deleteComment(commentId);
+	}
 }

@@ -86,4 +86,11 @@ public class BoardController{
 		boardService.writeComment(commentDto);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+	@PostMapping("/comment/delete")
+	public ResponseEntity<?> deleteComment(@RequestBody int commentId){
+		System.out.println("--------------commentId = "+commentId);
+		boardService.deleteComment(commentId);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 }

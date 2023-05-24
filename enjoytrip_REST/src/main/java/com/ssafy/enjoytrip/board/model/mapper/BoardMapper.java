@@ -38,4 +38,6 @@ public interface BoardMapper {
 
 	void writeComment(CommentDto commentDto);
 
+	void deleteComment(int commentId);
+
 }

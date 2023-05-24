@@ -35,5 +35,7 @@ public interface BoardService {
 	List<CommentDto> getComments(int articleNo);
 
 	void writeComment(CommentDto commentDto);
+
+	void deleteComment(int commentId);
 	
 }
