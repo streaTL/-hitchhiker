@@ -29,6 +29,8 @@ public interface BoardMapper {
 
 	void modifyAnnounce(BoardDto boadrDto) throws SQLException;
 
-	List<BoardDto> search(String keyword, String type) throws SQLException;;
+	List<BoardDto> search(String keyword, String type) throws SQLException;
+
+	void increaseHit(int articleNo);;
 
 }

@@ -41,6 +41,7 @@ public class BoardController{
 	@GetMapping("/{articleNo}")
 	public ResponseEntity<?> announceView(@PathVariable int articleNo) throws Exception {
 		BoardDto boardDto = boardService.viewAnnounce(articleNo);
+		boardService.increaseHit(articleNo);
 		return new ResponseEntity<>(boardDto, HttpStatus.OK);
 	}
 

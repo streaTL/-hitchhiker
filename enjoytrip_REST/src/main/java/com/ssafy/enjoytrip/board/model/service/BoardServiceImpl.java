@@ -81,4 +81,9 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardDto> search(String keyword, String type) throws SQLException {
 		return boardMapper.search(keyword, type);		
 	}
+
+	@Override
+	public void increaseHit(int articleNo) {
+		boardMapper.increaseHit(articleNo);	
+	}
 }

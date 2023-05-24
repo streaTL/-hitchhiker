@@ -28,5 +28,7 @@ public interface BoardService {
 	void modifyAnnounce(BoardDto articleNo) throws SQLException;
 
 	List<BoardDto> search(String keyword, String type) throws SQLException;
+
+	void increaseHit(int articleNo);
 	
 }

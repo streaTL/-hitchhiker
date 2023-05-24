@@ -72,6 +72,11 @@
 		set subject=#{subject}, content=#{content} where article_no = #{articleNo}
 	</update>
 	
+	<update id="increaseHit" parameterType="int">
+		update board
+		set hit = hit + 1 where article_no = #{articleNo}
+	</update>
+	
 	<delete id="deleteFree" parameterType="int">
 		delete from board
 		where article_no = #{articleNo}
