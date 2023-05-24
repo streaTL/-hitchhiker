@@ -2,7 +2,7 @@
   <div id="app">
     <nav-component></nav-component>
     <router-view />
-    <footer-component></footer-component>
+    <footer-component id="footer"></footer-component>
   </div>
 </template>
 
@@ -19,6 +19,7 @@ export default {
 
 <style>
 @import "../src/assets/css/styles.css";
+
 /* #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

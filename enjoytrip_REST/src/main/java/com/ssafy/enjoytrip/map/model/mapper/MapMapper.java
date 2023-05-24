@@ -16,4 +16,7 @@ public interface MapMapper {
 	List<attractionInfoDto> attrDetailInfo(String contentId);
 	List<attractionInfoDto> randAttrInfo();
 	List<HashMap<String, String>>  getChart();
+	List<HashMap<String, String>> getChart1();
+	List<HashMap<String, String>> getChart2();
+	List<HashMap<String, String>> getChart3();
 }

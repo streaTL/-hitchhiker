@@ -13,5 +13,10 @@ public interface MapService {
 
 	List<attractionInfoDto> randAttrInfo();
 	List<HashMap<String, String>>  getChart();
+	List<HashMap<String, String>> getChart1();
+
+	List<HashMap<String, String>> getChart2();
+
+	List<HashMap<String, String>> getChart3();
 
 }

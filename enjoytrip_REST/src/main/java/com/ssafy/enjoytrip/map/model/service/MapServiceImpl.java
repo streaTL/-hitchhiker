@@ -46,4 +46,22 @@ public class MapServiceImpl implements MapService {
 		return data;
 	}
 
+	@Override
+	public List<HashMap<String, String>> getChart1() {
+		List<HashMap<String, String>>  data = mapMapper.getChart1();
+		return data;
+	}
+
+	@Override
+	public List<HashMap<String, String>> getChart2() {
+		List<HashMap<String, String>>  data = mapMapper.getChart2();
+		return data;
+	}
+
+	@Override
+	public List<HashMap<String, String>> getChart3() {
+		List<HashMap<String, String>>  data = mapMapper.getChart3();
+		return data;
+	}
+
 }

@@ -68,4 +68,19 @@ public class MapController {
 		List<HashMap<String, String>>  data = mapService.getChart();
 		return new ResponseEntity<>(data, HttpStatus.OK);
 	}
+	@GetMapping("/chart1")
+	public ResponseEntity<?> getChart1() throws Exception {
+		List<HashMap<String, String>>  data = mapService.getChart1();
+		return new ResponseEntity<>(data, HttpStatus.OK);
+	}
+	@GetMapping("/chart2")
+	public ResponseEntity<?> getChart2() throws Exception {
+		List<HashMap<String, String>>  data = mapService.getChart2();
+		return new ResponseEntity<>(data, HttpStatus.OK);
+	}
+	@GetMapping("/chart3")
+	public ResponseEntity<?> getChart3() throws Exception {
+		List<HashMap<String, String>>  data = mapService.getChart3();
+		return new ResponseEntity<>(data, HttpStatus.OK);
+	}
 }

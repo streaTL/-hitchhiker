@@ -42,7 +42,36 @@
         FROM attraction_info ai join sido s on ai.sido_code = s.sido_code
         WHERE content_type_id = 12
         GROUP BY sido_name
-        ORDER BY avg DESC;
+        ORDER BY sido_name DESC;
+    ]]>
+	</select>
+	
+	<select id="getChart1" resultType="java.util.HashMap">
+    <![CDATA[
+        SELECT sido_name, count(title) AS avg
+        FROM attraction_info ai join sido s on ai.sido_code = s.sido_code
+        WHERE content_type_id = 12
+        GROUP BY sido_name
+        ORDER BY sido_name DESC;
+    ]]>
+	</select>
+	
+	<select id="getChart2" resultType="java.util.HashMap">
+    <![CDATA[
+       SELECT sido_name, count(title) AS avg
+        FROM attraction_info ai join sido s on ai.sido_code = s.sido_code
+        WHERE content_type_id = 39
+        GROUP BY sido_name
+        ORDER BY sido_name DESC;
+    ]]>
+	</select>
+	
+	<select id="getChart3" resultType="java.util.HashMap">
+    <![CDATA[
+        SELECT sido_name, count(title) AS avg
+        FROM attraction_info ai join sido s on ai.sido_code = s.sido_code
+        GROUP BY sido_name
+        ORDER BY sido_name DESC;
     ]]>
 	</select>
 
