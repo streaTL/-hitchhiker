@@ -18,6 +18,7 @@
         </div>
         <!-- Contact Section Form-->
         <div
+          id="my-table"
           class="mb-auto row"
           style="
             flex-wrap: wrap;
@@ -29,10 +30,18 @@
         >
           <!-- 계획 리스트 카드로 표시하기 -->
           <plan-list-component
-            v-for="(plan, index) in plans"
+            v-for="(plan, index) in paginatedPlans"
             :key="index"
             :plan="plan"
           ></plan-list-component>
+        </div>
+        <div style="justify-content: center; display: flex">
+          <b-pagination
+            v-model="currentPage"
+            :total-rows="rows"
+            :per-page="perPage"
+            aria-controls="my-table"
+          ></b-pagination>
         </div>
       </div>
     </section>
@@ -42,14 +51,28 @@
 <script>
 import http from "@/api/http";
 import PlanListComponent from "@/components/plan/PlanListComponent.vue";
+import { BPagination } from "bootstrap-vue";
 
 export default {
   name: "PlanListView",
-  components: { PlanListComponent },
+  components: { PlanListComponent, BPagination },
   data() {
     return {
       plans: [],
+
+      perPage: 10,
+      currentPage: 1,
     };
+  },
+  computed: {
+    rows() {
+      return this.plans.length;
+    },
+    paginatedPlans() {
+      const startIndex = (this.currentPage - 1) * this.perPage;
+      const endIndex = startIndex + this.perPage;
+      return this.plans.slice(startIndex, endIndex);
+    },
   },
   created() {
     http.get("plan/list").then(({ data }) => {

@@ -46,7 +46,8 @@
 		from plan p
 		JOIN plan_detail pd ON p.plan_id = pd.plan_id
 		JOIN
-		attraction_info ai ON pd.content_id = ai.content_id;
+		attraction_info ai ON pd.content_id = ai.content_id
+        order by create_time desc;
 	</select>
 
 	<select id="getPlanDetail" parameterType="int"

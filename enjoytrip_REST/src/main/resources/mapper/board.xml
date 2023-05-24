@@ -25,7 +25,7 @@
 	</insert>
 	
 	<select id="announceList" resultMap="article">
-		select * from board where type=1
+		select * from board where type=1 order by register_time desc
 	</select>
 
 
@@ -36,7 +36,7 @@
 
 
 	<select id="freeList"  resultMap="article">
-		select * from board where type=2
+		select * from board where type=2 order by register_time desc
 	</select>
 
 

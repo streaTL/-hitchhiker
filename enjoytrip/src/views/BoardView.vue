@@ -28,18 +28,26 @@
                 <th style="width: 25%">날짜</th>
               </tr>
             </thead>
-            <tbody>
-              <board-list-item
-                v-for="(board, index) in boards"
-                :key="index"
-                :board="board"
-                :type="type"
-              ></board-list-item>
-            </tbody>
+            <template id="my-table">
+              <tbody>
+                <board-list-item
+                  v-for="(board, index) in paginatedBoards"
+                  :key="index"
+                  :board="board"
+                  :type="type"
+                ></board-list-item>
+              </tbody>
+            </template>
           </table>
           <hr />
-          <div>
-            <ul class="pagination justify-content-center">
+          <div style="justify-content: center; display: flex">
+            <b-pagination
+              v-model="currentPage"
+              :total-rows="rows"
+              :per-page="perPage"
+              aria-controls="my-table"
+            ></b-pagination>
+            <!-- <ul class="pagination justify-content-center">
               <li>
                 <a href="#" style="margin-right: 5px" class="text-secondary"
                   >◀
@@ -65,7 +73,7 @@
                   >▶
                 </a>
               </li>
-            </ul>
+            </ul> -->
           </div>
           <div style="display: flex; justify-content: space-between">
             <router-link
@@ -103,15 +111,17 @@
 import BoardListItem from "@/components/board/BoardListItem.vue";
 import http from "@/api/http";
 import { mapState } from "vuex";
-
+import { BPagination } from "bootstrap-vue";
 export default {
   name: "BoardView",
-  components: { BoardListItem },
+  components: { BoardListItem, BPagination },
   data() {
     return {
       boards: [],
       keyword: "",
       token: "",
+      perPage: 10,
+      currentPage: 1,
     };
   },
   props: {
@@ -145,6 +155,14 @@ export default {
   },
   computed: {
     ...mapState(["isLogin"]),
+    rows() {
+      return this.boards.length;
+    },
+    paginatedBoards() {
+      const startIndex = (this.currentPage - 1) * this.perPage;
+      const endIndex = startIndex + this.perPage;
+      return this.boards.slice(startIndex, endIndex);
+    },
   },
   beforeMount() {
     if (this.isLogin == false) {
