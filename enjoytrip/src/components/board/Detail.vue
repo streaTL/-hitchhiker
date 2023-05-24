@@ -76,10 +76,10 @@ export default {
     articleNo: Number,
     type: String,
   },
-  created() {
+  async created() {
     let accessToken = sessionStorage.getItem("access-token");
     const url = "http://192.168.31.65/board/" + this.articleNo;
-    axios
+    await axios
       .get(url, { headers: { "auth-token": accessToken } })
       .then((data) => (this.board = data.data));
   },

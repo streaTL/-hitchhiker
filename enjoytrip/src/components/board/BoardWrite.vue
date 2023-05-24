@@ -64,12 +64,12 @@ export default {
   },
   created() {},
   methods: {
-    submit() {
+    async submit() {
       let accessToken = sessionStorage.getItem("access-token");
       console.log(accessToken);
       this.board.type = this.type;
       console.log(this.board);
-      http.post(
+      await http.post(
         "/board/write",
         {
           content: this.board.content,

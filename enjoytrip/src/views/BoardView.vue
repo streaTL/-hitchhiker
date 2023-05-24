@@ -118,12 +118,12 @@ export default {
     msg: String,
     type: String,
   },
-  created() {
+  async created() {
     let accessToken = sessionStorage.getItem("access-token");
     if (this.isLogin == true) {
       console.log("created");
       if (this.type == 1) {
-        http
+        await http
           .get("/board/announceList", {
             headers: {
               "auth-token": accessToken,
@@ -133,7 +133,7 @@ export default {
             this.boards = response.data;
           });
       } else {
-        http
+        await http
           .get("/board/freeList", {
             headers: { "auth-token": accessToken, test: "test" },
           })
@@ -153,14 +153,14 @@ export default {
     }
   },
   watch: {
-    type: function (newVal, oldVal) {
+    type: async function (newVal, oldVal) {
       // props가 변경될 때마다 실행되는 동작
       console.log("myProp이 변경되었습니다.", newVal, oldVal);
       let accessToken = sessionStorage.getItem("access-token");
 
       if (this.isLogin == true) {
         if (this.type == 1) {
-          http
+          await http
             .get("/board/announceList", {
               headers: { "auth-token": accessToken, test: "test" },
             })
@@ -168,7 +168,7 @@ export default {
               this.boards = response.data;
             });
         } else {
-          http
+          await http
             .get("/board/freeList", {
               headers: { "auth-token": accessToken, test: "test" },
             })
@@ -180,10 +180,10 @@ export default {
     },
   },
   methods: {
-    serch() {
+    async serch() {
       if (this.isLogin == true) {
         let accessToken = sessionStorage.getItem("access-token");
-        http
+        await http
           .get("/board/search/" + this.keyword, {
             headers: {
               type: this.type,
