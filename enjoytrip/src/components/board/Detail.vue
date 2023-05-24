@@ -21,10 +21,7 @@
                 :disabled="!able"
               ></textarea>
             </div>
-            <div
-              v-if="userInfo == board.userId"
-              style="display: flex; justify-content: flex-end"
-            >
+            <div v-if="userInfo == board.userId" style="display: flex; justify-content: flex-end">
               <button
                 type="button"
                 v-if="able == false"
@@ -41,15 +38,26 @@
               >
                 완료
               </button>
-              <button
-                type="button"
-                v-on:click="deleteBoard"
-                class="btn btn-secondary mt-3 mb-3"
-              >
+              <button type="button" v-on:click="deleteBoard" class="btn btn-secondary mt-3 mb-3">
                 삭제
               </button>
             </div>
           </form>
+        </div>
+      </div>
+      <div v-if="!able" class="container" style="justify-content: start">
+        <!-- 댓글  -->
+        <comment-component
+          @refresh="refresh"
+          v-for="(comment, index) in comments"
+          :key="index"
+          :comment="comment"
+        ></comment-component>
+        <!-- 댓글 입력창 -->
+        <h5 class="mt-4">댓글 입력창</h5>
+        <input type="text" class="form-control" v-model="newComment" />
+        <div class="mt-2" style="display: flex; justify-content: end">
+          <button type="button" @click="writeComment" class="btn btn-primary">작성</button>
         </div>
       </div>
     </section>
@@ -59,14 +67,22 @@
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
-
+import CommentComponent from "../common/CommentComponent.vue";
 export default {
   name: "boardDetail",
-  components: {},
+  components: { CommentComponent },
   data() {
     return {
       board: [],
       able: false,
+      comments: [],
+      newComment: "",
+      // {
+      //   commentId:
+      //     userId:
+      //   content:
+      //   createTime:
+      // }
     };
   },
   computed: {
@@ -78,12 +94,23 @@ export default {
   },
   async created() {
     let accessToken = sessionStorage.getItem("access-token");
-    const url = "http://192.168.31.65/board/" + this.articleNo;
+    const url = "http://192.168.31.65/board/";
     await axios
-      .get(url, { headers: { "auth-token": accessToken } })
+      .get(url + this.articleNo, { headers: { "auth-token": accessToken } })
       .then((data) => (this.board = data.data));
+    await axios
+      .get(url + "comment/" + this.articleNo, { headers: { "auth-token": accessToken } })
+      .then((comments) => (this.comments = comments.data));
   },
   methods: {
+    refresh() {
+      let accessToken = sessionStorage.getItem("access-token");
+      axios
+        .get("http://192.168.31.65/board/comment/" + this.articleNo, {
+          headers: { "auth-token": accessToken },
+        })
+        .then((comments) => (this.comments = comments.data));
+    },
     disabledToAble() {
       console.log("변경!!!");
 
@@ -134,6 +161,27 @@ export default {
         name: board,
         params: { type: this.type, msg: msg },
       });
+    },
+    async writeComment() {
+      let accessToken = sessionStorage.getItem("access-token");
+      const url = "http://192.168.31.65/board/comment/write";
+      await axios
+        .post(
+          url,
+          {
+            userId: this.userInfo,
+            content: this.newComment,
+            articleNo: this.board.articleNo,
+          },
+          { headers: { "auth-token": accessToken } }
+        )
+        .then((data) => console.log(data));
+      this.newComment = "";
+      await axios
+        .get("http://192.168.31.65/board/comment/" + this.articleNo, {
+          headers: { "auth-token": accessToken },
+        })
+        .then((comments) => (this.comments = comments.data));
     },
   },
 };
