@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.enjoytrip.map.model.SidoDto;
 import com.ssafy.enjoytrip.map.model.attractionInfoDto;
-import com.ssafy.enjoytrip.map.model.dao.MapDao;
-import com.ssafy.enjoytrip.map.model.dao.MapDaoImpl;
 import com.ssafy.enjoytrip.map.model.mapper.MapMapper;
 
 @Service

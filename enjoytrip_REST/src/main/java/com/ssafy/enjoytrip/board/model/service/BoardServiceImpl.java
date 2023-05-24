@@ -8,13 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.enjoytrip.board.model.BoardDto;
 import com.ssafy.enjoytrip.board.model.CommentDto;
-import com.ssafy.enjoytrip.board.model.dao.BoardDao;
-import com.ssafy.enjoytrip.board.model.dao.BoardDaoImpl;
 import com.ssafy.enjoytrip.board.model.mapper.BoardMapper;
 @Service
 public class BoardServiceImpl implements BoardService{
 	
-	public BoardDao boardDao;
+	
 	public BoardMapper boardMapper;
 	
 	@Autowired
